@@ -275,14 +275,14 @@ static int tegra_alc5623_event_int_mic(struct snd_soc_dapm_widget *w,
         return 0;
 }
 
-static const struct snd_soc_dapm_widget adam_dapm_widgets[] = {
+static const struct snd_soc_dapm_widget smba1002_dapm_widgets[] = {
 	SND_SOC_DAPM_SPK("Int Spk", tegra_alc5623_event_int_spk),
 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
 	SND_SOC_DAPM_MIC("Int Mic", NULL),
 	SND_SOC_DAPM_LINE("FM Radio", NULL),
 };
 
-static const struct snd_soc_dapm_route adam_audio_map[] = {
+static const struct snd_soc_dapm_route smba1002_audio_map[] = {
 	{"Headphone Jack", NULL, "HPR"},
 	{"Headphone Jack", NULL, "HPL"},
 	{"Int Spk", NULL, "AUXOUTR"},
@@ -293,7 +293,7 @@ static const struct snd_soc_dapm_route adam_audio_map[] = {
 	{"AUXINL", NULL, "FM Radio"},
 };
 
-static const struct snd_kcontrol_new adam_controls[] = {
+static const struct snd_kcontrol_new smba1002_controls[] = {
 	SOC_DAPM_PIN_SWITCH("Int Spk"),
 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
 	SOC_DAPM_PIN_SWITCH("Int Mic"),
@@ -336,17 +336,17 @@ static int tegra_alc5623_init(struct snd_soc_pcm_runtime *rtd)
                 gpio_direction_output(pdata->gpio_int_mic_en, 0);
         }
 
-	if (machine_is_adam()) {
-		ret = snd_soc_add_controls(codec, adam_controls,
-				ARRAY_SIZE(adam_controls));
+	if (machine_is_smba1002()) {
+		ret = snd_soc_add_controls(codec, smba1002_controls,
+				ARRAY_SIZE(smba1002_controls));
 		if (ret < 0)
 			return ret;
 
-		snd_soc_dapm_new_controls(dapm, adam_dapm_widgets,
-				ARRAY_SIZE(adam_dapm_widgets));
+		snd_soc_dapm_new_controls(dapm, smba1002_dapm_widgets,
+				ARRAY_SIZE(smba1002_dapm_widgets));
 
-		snd_soc_dapm_add_routes(dapm, adam_audio_map,
-					ARRAY_SIZE(adam_audio_map));
+		snd_soc_dapm_add_routes(dapm, smba1002_audio_map,
+					ARRAY_SIZE(smba1002_audio_map));
 	}
 
 	if (gpio_is_valid(pdata->gpio_hp_det)) {
@@ -369,7 +369,7 @@ static int tegra_alc5623_init(struct snd_soc_pcm_runtime *rtd)
 
 	snd_soc_dapm_force_enable_pin(dapm, "Mic Bias1");
 
-	if (machine_is_adam()) {
+	if (machine_is_smba1002()) {
 		snd_soc_dapm_nc_pin(dapm, "SPKOUT");
 		snd_soc_dapm_nc_pin(dapm, "SPKOUTN");
 		snd_soc_dapm_nc_pin(dapm, "LINEINL");
