@@ -239,6 +239,9 @@ static int tegra_alc5623_event_int_spk(struct snd_soc_dapm_widget *w,
 
 	if (!(machine->gpio_requested & GPIO_SPKR_EN)) {
 /*		if(pdata->gpio_spkr_en == -2) {
+			 snd_soc_update_bits(codec, ALC5623_PWR_MANAG_ADD1,
+                                ALC5623_PWR_ADD1_AUX_OUT_AMP,
+                                !!SND_SOC_DAPM_EVENT_ON(event) * ALC5623_PWR_ADD1_AUX_OUT_AMP);
 			 snd_soc_update_bits(codec, ALC5623_GPIO_OUTPUT_PIN_CTRL,
                                 ALC5623_GPIO_OUTPUT_GPIO_OUT_STATUS,
                                 !!SND_SOC_DAPM_EVENT_ON(event) * ALC5623_GPIO_OUTPUT_GPIO_OUT_STATUS);
@@ -274,6 +277,9 @@ static int tegra_alc5623_event_int_mic(struct snd_soc_dapm_widget *w,
 
         return 0;
 }
+
+
+
 
 static const struct snd_soc_dapm_widget smba1002_dapm_widgets[] = {
 	SND_SOC_DAPM_PGA("Ext Amp", ALC5623_GPIO_OUTPUT_PIN_CTRL, 1, 0, NULL, 0),
@@ -554,4 +560,3 @@ MODULE_AUTHOR("Jason Stern");
 MODULE_DESCRIPTION("Tegra+ALC5623 machine ASoC driver");
 MODULE_LICENSE("GPL");
 MODULE_ALIAS("platform:" DRV_NAME);
-
