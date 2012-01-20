@@ -22,6 +22,7 @@ snd-soc-max98088-objs := max98088.o
 snd-soc-max98095-objs := max98095.o
 snd-soc-max9850-objs := max9850.o
 snd-soc-pcm3008-objs := pcm3008.o
+snd-soc-sgtl5000-objs := sgtl5000.o
 snd-soc-tegra-alc5623-objs := tegra_alc5623.o tegra_generic_codec.o
 snd-soc-alc5623-objs := alc5623.o
 snd-soc-sn95031-objs := sn95031.o
