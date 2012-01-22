@@ -18,4 +18,4 @@ endif
 
 soundcore-objs  := sound_core.o
 
-EXTRA_CFLAGS += -DDEBUG
+
