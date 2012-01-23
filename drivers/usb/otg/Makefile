@@ -1,7 +1,6 @@
 #
 # OTG infrastructure and transceiver drivers
 #
-GCOV_PROFILE_tegra-otg.o := y
 
 ccflags-$(CONFIG_USB_DEBUG)		:= -DDEBUG
 ccflags-$(CONFIG_USB_GADGET_DEBUG)	+= -DDEBUG

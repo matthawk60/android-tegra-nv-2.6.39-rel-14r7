@@ -1,7 +1,6 @@
 #
 # Makefile for USB Host Controller Drivers
 #
-GCOV_PROFILE := y
 
 ccflags-$(CONFIG_USB_DEBUG) := -DDEBUG
 

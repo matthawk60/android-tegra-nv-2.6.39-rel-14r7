@@ -40,8 +40,11 @@ struct tegra_ehci_platform_data {
 };
 
 struct tegra_otg_platform_data {
-	struct platform_device *ehci_device;
-	struct tegra_ehci_platform_data *ehci_pdata;
+	struct platform_device* (*host_register)(void);
+	void (*host_unregister)(struct platform_device*);
 };
+
+extern void tegra_otg_check_vbus_detection(void);
+extern void tegra_otg_set_host_mode(bool host_mode);
 
 #endif /* _TEGRA_USB_H_ */
