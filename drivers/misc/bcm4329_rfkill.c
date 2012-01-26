@@ -89,6 +89,7 @@ static int bcm4329_rfkill_probe(struct platform_device *pdev)
 	if (!bcm4329_rfkill)
 		return -ENOMEM;
 
+
 	bcm4329_rfkill->bt_32k_clk = clk_get(&pdev->dev, "bcm4329_32k_clk");
 	if (IS_ERR(bcm4329_rfkill->bt_32k_clk)) {
 		pr_warn("%s: can't find bcm4329_32k_clk.\

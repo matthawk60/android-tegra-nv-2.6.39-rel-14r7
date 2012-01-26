@@ -137,7 +137,6 @@ struct tegra_dc {
 #ifdef CONFIG_DEBUG_FS
 	struct dentry			*debugdir;
 #endif
-	struct tegra_dc_lut		fb_lut;
 };
 
 static inline void tegra_dc_io_start(struct tegra_dc *dc)
