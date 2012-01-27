@@ -381,6 +381,7 @@ config SND_SOC_WM2000
 	tristate
 
 config SND_SOC_WM9090
+
 	tristate
 
 config ALC_SWAP_CHANNELS

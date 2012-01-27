@@ -107,10 +107,17 @@ static int tegra_alc5623_hw_params(struct snd_pcm_substream *substream,
 		return err;
 	}
 
+if (machine_is_smba1002())
 	err = snd_soc_dai_set_fmt(codec_dai,
-					SND_SOC_DAIFMT_I2S |
-					SND_SOC_DAIFMT_NB_NF |
-					SND_SOC_DAIFMT_CBS_CFS);
+		SND_SOC_DAIFMT_I2S |
+		SND_SOC_DAIFMT_NB_IF |
+		SND_SOC_DAIFMT_CBS_CFS);
+else
+	err = snd_soc_dai_set_fmt(codec_dai,
+		SND_SOC_DAIFMT_I2S |
+		SND_SOC_DAIFMT_NB_NF |
+		SND_SOC_DAIFMT_CBS_CFS);
+
 	if (err < 0) {
 		dev_err(card->dev, "codec_dai fmt not set\n");
 		return err;
@@ -297,8 +304,8 @@ static const struct snd_soc_dapm_widget smba1002_dapm_widgets[] = {
 static const struct snd_soc_dapm_route smba1002_audio_map[] = {
 	{"Headphone Jack", NULL, "HPR"},
 	{"Headphone Jack", NULL, "HPL"},
-	{"Auxout Amp", NULL, "AUXOUTR"},
-	{"Auxout Amp", NULL, "AUXOUTL"},
+	{"Auxout Amp", "HPOut Mix", "AUXOUTR"},
+	{"Auxout Amp", "HPOut Mix", "AUXOUTL"},
 	{"Ext Amp", NULL, "Auxout Amp"},
 	{"Int Spk", NULL, "Ext Amp"},
 	{"Mic Bias1", NULL, "Int Mic"},
