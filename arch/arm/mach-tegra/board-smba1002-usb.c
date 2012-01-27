@@ -99,29 +99,11 @@ static struct tegra_utmip_config utmi_phy_config[] = {
 	},
 };
 
-/* ULPI is managed by an SMSC3317 on the Harmony board */
-static struct tegra_ulpi_config ulpi_phy_config = {
-// Is this even right?
-.reset_gpio = TEGRA_GPIO_PG2,
-.clk = "cdev2",
-};
-
-static struct tegra_ulpi_config smba1002_ehci2_ulpi_phy_config = {
-.reset_gpio = SMBA1002_USB1_RESET,
-.clk = "cdev2",
-};
-static struct tegra_ehci_platform_data smba1002_ehci2_ulpi_platform_data = {
-	.operating_mode = TEGRA_USB_HOST,
-	.power_down_on_bus_suspend = 0,
-	.phy_config = &smba1002_ehci2_ulpi_phy_config,
-	.phy_type = TEGRA_USB_PHY_TYPE_LINK_ULPI,
-};
-
 static struct usb_phy_plat_data tegra_usb_phy_pdata[] = {
         [0] = {
                         .instance = 0,
                         .vbus_irq = TPS6586X_INT_BASE + TPS6586X_INT_USB_DET,
-                       // .vbus_gpio = TEGRA_GPIO_PB0,
+                        .vbus_gpio = TEGRA_GPIO_PB0,
         },
         [1] = {
                         .instance = 1,
@@ -134,17 +116,16 @@ static struct usb_phy_plat_data tegra_usb_phy_pdata[] = {
 };
 
 static struct tegra_ehci_platform_data tegra_ehci_pdata[] = {
-      [0] = {
-			.phy_config = &utmi_phy_config[0],
-			.operating_mode = TEGRA_USB_OTG,
-			.power_down_on_bus_suspend = 0,
-      },
-      [1] = {
-			.phy_config = &utmi_phy_config[1],
-			.operating_mode = TEGRA_USB_HOST,
-			.power_down_on_bus_suspend = 0,
-			.hotplug = 1,
-      },
+	[0] = {
+		.phy_config = &utmi_phy_config[0],
+		.operating_mode = TEGRA_USB_OTG, /* DEVICE is slave here / HOST*/
+		.power_down_on_bus_suspend = 0,
+	},
+	[1] = {
+		.phy_config = &utmi_phy_config[1],
+		.operating_mode = TEGRA_USB_HOST,
+		.power_down_on_bus_suspend = 0,
+	},
 };
 
 static struct tegra_otg_platform_data tegra_otg_pdata = {
@@ -155,20 +136,17 @@ static struct tegra_otg_platform_data tegra_otg_pdata = {
 
 int __init smba1002_usb_register_devices(void)
 {
-	//tegra_usb_phy_init(tegra_usb_phy_pdata, ARRAY_SIZE(tegra_usb_phy_pdata));
+	tegra_usb_phy_init(tegra_usb_phy_pdata, ARRAY_SIZE(tegra_usb_phy_pdata));
 	/* OTG should be the first to be registered */
-	gpio_request(SMBA1002_USB0_VBUS, "USB0 VBUS");
-	gpio_direction_output(SMBA1002_USB0_VBUS, 0 );
-
 	tegra_otg_device.dev.platform_data = &tegra_otg_pdata;
 	platform_device_register(&tegra_otg_device);
-
-	platform_device_register(&tegra_udc_device);
-	// platform_device_register(&tegra_ehci1_device);
-
-	tegra_ehci3_device.dev.platform_data = &tegra_ehci_pdata[1];
+	
+	tegra_ehci1_device.dev.platform_data=&tegra_ehci_pdata[0];
 	platform_device_register(&tegra_ehci3_device);
 
-	return 1;
 
+	tegra_ehci3_device.dev.platform_data=&tegra_ehci_pdata[3];
+	platform_device_register(&tegra_ehci3_device);
+	
+	return 1;
 }
