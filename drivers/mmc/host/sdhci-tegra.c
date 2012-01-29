@@ -82,6 +82,9 @@ static struct tegra_sdhci_hw_ops tegra_3x_sdhci_ops = {
 
 struct tegra_sdhci_host {
 	bool	clk_enabled;
+	char	wp_gpio_name[32];
+	char	cd_gpio_name[32];
+	char	power_gpio_name[32];
 	struct regulator *vdd_io_reg;
 	struct regulator *vdd_slot_reg;
 	/* Pointer to the chip specific HW ops */
@@ -545,7 +548,8 @@ static int tegra_sdhci_pltfm_init(struct sdhci_host *host,
 #endif
 
 	if (gpio_is_valid(plat->power_gpio)) {
-		rc = gpio_request(plat->power_gpio, "sdhci_power");
+		snprintf(tegra_host->power_gpio_name,sizeof(tegra_host->power_gpio_name),"sdhci%d_power",pdev->id);
+		rc = gpio_request(plat->power_gpio, tegra_host->power_gpio_name);
 		if (rc) {
 			dev_err(mmc_dev(host->mmc),
 				"failed to allocate power gpio\n");
@@ -556,7 +560,8 @@ static int tegra_sdhci_pltfm_init(struct sdhci_host *host,
 	}
 
 	if (gpio_is_valid(plat->cd_gpio)) {
-		rc = gpio_request(plat->cd_gpio, "sdhci_cd");
+		snprintf(tegra_host->cd_gpio_name,sizeof(tegra_host->cd_gpio_name),"sdhci%d_cd",pdev->id);
+		rc = gpio_request(plat->cd_gpio, tegra_host->cd_gpio_name);
 		if (rc) {
 			dev_err(mmc_dev(host->mmc),
 				"failed to allocate cd gpio\n");
@@ -588,7 +593,8 @@ static int tegra_sdhci_pltfm_init(struct sdhci_host *host,
 	}
 
 	if (gpio_is_valid(plat->wp_gpio)) {
-		rc = gpio_request(plat->wp_gpio, "sdhci_wp");
+		snprintf(tegra_host->wp_gpio_name,sizeof(tegra_host->wp_gpio_name),"sdhci%d_wp",pdev->id);
+		rc = gpio_request(plat->wp_gpio, tegra_host->wp_gpio_name);
 		if (rc) {
 			dev_err(mmc_dev(host->mmc),
 				"failed to allocate wp gpio\n");
@@ -599,27 +605,15 @@ static int tegra_sdhci_pltfm_init(struct sdhci_host *host,
 	}
 
 
-	if (!plat->mmc_data.built_in) {
-		if (plat->mmc_data.ocr_mask & SDHOST_1V8_OCR_MASK) {
-			tegra_host->vddio_min_uv = SDHOST_LOW_VOLT_MIN;
-			tegra_host->vddio_max_uv = SDHOST_LOW_VOLT_MAX;
-		} else {
-			/*
-			 * Set the minV and maxV to default
-			 * voltage range of 2.7V - 3.6V
-			 */
-			tegra_host->vddio_min_uv = SDHOST_HIGH_VOLT_MIN;
-			tegra_host->vddio_max_uv = SDHOST_HIGH_VOLT_MAX;
-		}
+if (!plat->mmc_data.built_in && !plat->has_no_vreg) {
 		tegra_host->vdd_io_reg = regulator_get(mmc_dev(host->mmc), "vddio_sdmmc");
-		if (IS_ERR_OR_NULL(tegra_host->vdd_io_reg)) {
+		if (WARN_ON(IS_ERR_OR_NULL(tegra_host->vdd_io_reg))) {
 			dev_err(mmc_dev(host->mmc), "%s regulator not found: %ld\n",
 				"vddio_sdmmc", PTR_ERR(tegra_host->vdd_io_reg));
 			tegra_host->vdd_io_reg = NULL;
 		} else {
 			rc = regulator_set_voltage(tegra_host->vdd_io_reg,
-				tegra_host->vddio_min_uv,
-				tegra_host->vddio_max_uv);
+				3280000, 3320000);
 			if (rc) {
 				dev_err(mmc_dev(host->mmc), "%s regulator_set_voltage failed: %d",
 					"vddio_sdmmc", rc);
