@@ -59,6 +59,7 @@
 #include "devices.h"
 #include "pm.h"
 #include "wakeups-t2.h"
+#include "wdt-recovery.h"
 
 
 /* NVidia bootloader tags */
@@ -690,7 +691,10 @@ static void __init tegra_smba1002_init(void)
 	smba1002_nand_register_devices();
 	
 	
-	tegra_release_bootloader_fb();	
+	tegra_release_bootloader_fb();
+#ifdef CONFIG_TEGRA_WDT_RECOVERY
+	tegra_wdt_recovery_init();
+#endif
 #if 0
 	/* Finally, init the external memory controller and memory frequency scaling
    	   NB: This is not working on SMBA1002. And seems there is no point in fixing it,

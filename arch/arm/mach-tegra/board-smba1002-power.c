@@ -349,6 +349,7 @@ static struct regulator_init_data vdd_aon_data =
 		.microvolts  	= (_mv)*1000,				\
 		.gpio        	= _gpio,					\
 		.enable_high	= _activehigh,				\
+		.set_as_input_to_enable = _itoen,			\
 		.startup_delay	= _delay,					\
 		.enabled_at_boot= _atboot,					\
 		.init_data		= &_data,					\
@@ -418,9 +419,9 @@ static struct tps6586x_subdev_info tps_devs[] = {
 	TPS_ADJ_REG(LDO_9, &ldo9_data),
 	//TPS_ADJ_REG(LDO_RTC, &rtc_data),
 	//TPS_ADJ_REG(LDO_SOC, &soc_data),
-	/*TPS_GPIO_FIX_REG(0, &ldo_tps74201_cfg),
+	TPS_GPIO_FIX_REG(0, &ldo_tps74201_cfg),
 	TPS_GPIO_FIX_REG(1, &buck_tps62290_cfg),
-	TPS_GPIO_FIX_REG(2, &ldo_tps72012_cfg),*/
+	TPS_GPIO_FIX_REG(2, &ldo_tps72012_cfg),
 	{
 		.id		= -1,
 		.name		= "tps6586x-rtc",
