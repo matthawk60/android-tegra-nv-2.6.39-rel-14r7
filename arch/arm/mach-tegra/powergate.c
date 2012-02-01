@@ -119,8 +119,8 @@ static struct powergate_partition powergate_partition_info[TEGRA_NUM_POWERGATE] 
 	[TEGRA_POWERGATE_PCIE]	= { "pcie",
 						{MC_CLIENT_AFI, MC_CLIENT_LAST},
 						{{"afi", CLK_AND_RST},
-						{"pcie", CLK_AND_RST},
-						{"pciex", RST_ONLY} }, },
+						{"pex", CLK_AND_RST},
+						{"pcie_xclk", RST_ONLY} }, },
 	[TEGRA_POWERGATE_VDEC]	= { "vde",
 						{MC_CLIENT_VDE, MC_CLIENT_LAST},
 						{{"vde", CLK_AND_RST} }, },
@@ -151,9 +151,7 @@ static struct powergate_partition powergate_partition_info[TEGRA_NUM_POWERGATE] 
 						{MC_CLIENT_NV2, MC_CLIENT_LAST},
 						{{"3d2", CLK_AND_RST} }, },
 	[TEGRA_POWERGATE_HEG]	= { "heg",
-						{MC_CLIENT_G2, MC_CLIENT_EPP,
-							MC_CLIENT_HC,
-							MC_CLIENT_LAST},
+						{MC_CLIENT_G2, MC_CLIENT_EPP, MC_CLIENT_HC},
 						{{"2d", CLK_AND_RST},
 						{"epp", CLK_AND_RST},
 						{"host1x", CLK_AND_RST},
@@ -204,6 +202,7 @@ static void mc_flush(int id)
 			break;
 
 		spin_lock_irqsave(&tegra_powergate_lock, flags);
+
 		rst_ctrl = mc_read(MC_CLIENT_HOTRESET_CTRL);
 		rst_ctrl |= (1 << mcClientBit);
 		mc_write(rst_ctrl, MC_CLIENT_HOTRESET_CTRL);
@@ -415,16 +414,17 @@ static int tegra_powergate_set(int id, bool new_state)
 {
 	bool status;
 	unsigned long flags;
-	/* 10us timeout for toggle operation if it takes affect*/
-	int toggle_timeout = 10;
-	/* 100 * 10 = 1000us timeout for toggle command to take affect in case
+	/* 20us timeout for toggle operation if it takes affect*/
+	int toggle_timeout = 20;
+	/* 100 * 10 = 4000us timeout for toggle command to take affect in case
 	   of contention with h/w initiated CPU power gating */
-	int contention_timeout = 100;
+	int contention_timeout = 400;
 
 	spin_lock_irqsave(&tegra_powergate_lock, flags);
 
 	status = !!(pmc_read(PWRGATE_STATUS) & (1 << id));
 
+	/* If already on that state, we are done! */
 	if (status == new_state) {
 		spin_unlock_irqrestore(&tegra_powergate_lock, flags);
 		return 0;

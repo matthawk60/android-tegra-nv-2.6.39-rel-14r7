@@ -1333,8 +1333,8 @@ set_chip_timing(struct tegra_nand_info *info, uint32_t vendor_id,
 	for (i = 0; i < info->plat->nr_chip_parms; i++)
 		if (info->plat->chip_parms[i].vendor_id == vendor_id &&
 		    info->plat->chip_parms[i].device_id == dev_id &&
-		    info->plat->chip_parms[i].read_id_fourth_byte ==
-		    fourth_id_field)
+		    (info->plat->chip_parms[i].read_id_fourth_byte == 0 || 
+			info->plat->chip_parms[i].read_id_fourth_byte == fourth_id_field))
 			chip_parms = &info->plat->chip_parms[i];
 
 	if (!chip_parms) {
