@@ -327,7 +327,7 @@ static int __init get_cfg_from_tags(void)
 		
 		/* Until we find out if the bootloader supports the workaround required to implement
 		   LP0, disable it */
-		tegra_lp0_vec_start = tegra_lp0_vec_size = 0;
+		//tegra_lp0_vec_start = tegra_lp0_vec_size = 0;
 
 	}
 	
@@ -669,7 +669,7 @@ static void __init tegra_smba1002_init(void)
 	smba1002_sdhci_register_devices();
 
 	/* Register accelerometer device */
-	smba1002_sensors_register_devices();
+	//smba1002_sensors_register_devices();
 	
 	/* Register wlan powermanagement devices */
 //	smba1002_wlan_pm_register_devices();
