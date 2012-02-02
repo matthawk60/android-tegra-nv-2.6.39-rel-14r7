@@ -48,7 +48,7 @@
 #include <mach/iomap.h>
 #include <mach/io.h>
 #include <mach/i2s.h>
-#include <mach/tegra_wm8903_pdata.h>
+#include <mach/tegra_wm8903_pdata.h
 
 #include <asm/mach-types.h>
 #include <asm/mach/arch.h>

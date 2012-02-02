@@ -669,7 +669,7 @@ static void __init tegra_smba1002_init(void)
 	smba1002_sdhci_register_devices();
 
 	/* Register accelerometer device */
-	//smba1002_sensors_register_devices();
+	smba1002_sensors_register_devices();
 	
 	/* Register wlan powermanagement devices */
 //	smba1002_wlan_pm_register_devices();

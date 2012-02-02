@@ -142,7 +142,7 @@ static struct tegra_ehci_platform_data tegra_ehci_pdata[] = {
       [1] = {
 			.phy_config = &utmi_phy_config[1],
 			.operating_mode = TEGRA_USB_HOST,
-			.power_down_on_bus_suspend = 0,
+			.power_down_on_bus_suspend = 1,
 			.hotplug = 0,
       },
 };
@@ -157,8 +157,8 @@ int __init smba1002_usb_register_devices(void)
 {
 	tegra_usb_phy_init(tegra_usb_phy_pdata, ARRAY_SIZE(tegra_usb_phy_pdata));
 	/* OTG should be the first to be registered */
-	gpio_request(SMBA1002_USB0_VBUS, "USB0 VBUS");
-	gpio_direction_output(SMBA1002_USB0_VBUS, 0 );
+	//gpio_request(SMBA1002_USB0_VBUS, "USB0 VBUS");
+	//gpio_direction_output(SMBA1002_USB0_VBUS, 0 );
 
 	tegra_otg_device.dev.platform_data = &tegra_otg_pdata;
 	platform_device_register(&tegra_otg_device);

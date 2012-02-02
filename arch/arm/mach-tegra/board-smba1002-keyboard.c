@@ -25,6 +25,9 @@
 #include <mach/iomap.h>
 #include <mach/io.h>
 #include <linux/io.h>
+#include <linux/pm.h>
+#include <linux/gpio.h>
+#include <linux/interrupt.h>
 
 #include <linux/gpio.h>
 #include <asm/mach-types.h>
@@ -39,7 +42,7 @@ static struct gpio_keys_button smba1002_keys[] = {
 		.gpio = SMBA1002_KEY_VOLUMEUP,
 		.active_low = true,
 		.debounce_interval = 10,
-		.wakeup = true,		
+		.wakeup = false,		
 		.code = KEY_VOLUMEUP,
 		.type = EV_KEY,		
 		.desc = "volume up",
@@ -48,7 +51,7 @@ static struct gpio_keys_button smba1002_keys[] = {
 		.gpio = SMBA1002_KEY_VOLUMEDOWN,
 		.active_low = true,
 		.debounce_interval = 10,
-		.wakeup = true,		
+		.wakeup = false,		
 		.code = KEY_VOLUMEDOWN,
 		.type = EV_KEY,		
 		.desc = "volume down",
@@ -66,7 +69,7 @@ static struct gpio_keys_button smba1002_keys[] = {
 		.gpio = SMBA1002_KEY_BACK,
 		.active_low = true,
 		.debounce_interval = 10,
-		.wakeup = true,		
+		.wakeup = false,		
 		.code = KEY_BACK,
 		.type = EV_KEY,		
 		.desc = "back",
@@ -128,12 +131,13 @@ static struct platform_device smba1002_leds_gpio = {
 
 static struct platform_device *smba1002_pmu_devices[] __initdata = {
 	&smba1002_keys_device,
-	&smba1002_leds_gpio,
+	//&smba1002_leds_gpio,
 };
 
 /* Register all keyboard devices */
 int __init smba1002_keyboard_register_devices(void)
 {
+  	//enable_irq_wake(gpio_to_irq(TEGRA_WAKE_GPIO_PV2));
 	return platform_add_devices(smba1002_pmu_devices, ARRAY_SIZE(smba1002_pmu_devices));
 }
 
