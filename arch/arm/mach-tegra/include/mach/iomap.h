@@ -36,7 +36,7 @@
 
 #if defined(CONFIG_ARCH_TEGRA_2x_SOC)
 #define TEGRA_DRAM_BASE			0x00000000
-#define TEGRA_DRAM_SIZE			SZ_1G		/* Maximum size */
+#define TEGRA_DRAM_SIZE			SZ_512M		/* Maximum size */
 #else
 #define TEGRA_DRAM_BASE			0x80000000
 #define TEGRA_DRAM_SIZE			(SZ_2G - SZ_1M)	/* Maximum size */
@@ -47,7 +47,7 @@
 
 /* First 1K of IRAM is reserved for cpu reset handler. */
 #define TEGRA_RESET_HANDLER_BASE	TEGRA_IRAM_BASE
-#define TEGRA_RESET_HANDLER_SIZE	SZ_1K
+#define TEGRA_RESET_HANDLER_SIZE	SZ_256K
 
 #define TEGRA_HOST1X_BASE		0x50000000
 #define TEGRA_HOST1X_SIZE		0x24000
