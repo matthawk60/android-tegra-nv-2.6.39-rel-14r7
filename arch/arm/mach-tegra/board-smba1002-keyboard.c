@@ -22,12 +22,17 @@
 //#include <linux/gpio_shortlong_key.h>
 #include <linux/leds.h>
 #include <linux/leds_pwm.h>
+#include <mach/iomap.h>
+#include <mach/io.h>
+#include <linux/io.h>
 
 #include <linux/gpio.h>
 #include <asm/mach-types.h>
 
 #include "board-smba1002.h"
 #include "gpio-names.h"
+#include "wakeups-t2.h"
+#include "fuse.h"
 
 static struct gpio_keys_button smba1002_keys[] = {
 	[0] = {
@@ -67,11 +72,19 @@ static struct gpio_keys_button smba1002_keys[] = {
 		.desc = "back",
 	},
 };
+#define PMC_WAKE_STATUS 0x14
 
+static int smba1002_wakeup_key(void)
+{
+	unsigned long status = 
+		readl(IO_ADDRESS(TEGRA_PMC_BASE) + PMC_WAKE_STATUS);
+	return status & TEGRA_WAKE_GPIO_PV2 ? KEY_POWER : KEY_RESERVED;
+}
 
 static struct gpio_keys_platform_data smba1002_keys_platform_data = {
 	.buttons 	= smba1002_keys,
 	.nbuttons 	= ARRAY_SIZE(smba1002_keys),
+	.wakeup_key     = smba1002_wakeup_key,
 	.rep		= false, /* auto repeat enabled */
 };
 

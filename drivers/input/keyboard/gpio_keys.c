@@ -583,7 +583,7 @@ static int gpio_keys_suspend(struct device *dev)
 			struct gpio_keys_button *button = &pdata->buttons[i];
 			if (button->wakeup) {
 				int irq = gpio_to_irq(button->gpio);
-				enable_irq_wake(irq);
+				//enable_irq_wake(irq);
 			}
 		}
 	}

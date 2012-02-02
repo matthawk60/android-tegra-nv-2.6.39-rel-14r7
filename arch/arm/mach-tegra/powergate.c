@@ -415,10 +415,10 @@ static int tegra_powergate_set(int id, bool new_state)
 	bool status;
 	unsigned long flags;
 	/* 20us timeout for toggle operation if it takes affect*/
-	int toggle_timeout = 20;
+	int toggle_timeout = 10;
 	/* 100 * 10 = 4000us timeout for toggle command to take affect in case
 	   of contention with h/w initiated CPU power gating */
-	int contention_timeout = 400;
+	int contention_timeout = 100;
 
 	spin_lock_irqsave(&tegra_powergate_lock, flags);
 

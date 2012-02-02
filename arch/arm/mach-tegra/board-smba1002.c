@@ -557,9 +557,9 @@ static void smba1002_board_resume(int lp_state, enum resume_stage stg)
 
 static struct tegra_suspend_platform_data smba1002_suspend = {
 	.cpu_timer 	  	= 2000,  	// 5000
-	.cpu_off_timer 	= 0, 		// 5000
+	.cpu_off_timer 	= 100, 		// 5000
 	.core_timer    	= 0x7e7e,	//
-	.core_off_timer = 0,		// 0x7f
+	.core_off_timer = 0xf,		// 0x7f
     .corereq_high 	= false,
 	.sysclkreq_high = true,
 	.suspend_mode 	= TEGRA_SUSPEND_LP1,
@@ -781,15 +781,8 @@ MACHINE_START(LEGACY, "legacy")
 	.fixup			= tegra_smba1002_fixup,
 MACHINE_END
 
-#if 0
-#define PMC_WAKE_STATUS 0x14
 
-static int smba1002_wakeup_key(void)
-{
-	unsigned long status = 
-		readl(IO_ADDRESS(TEGRA_PMC_BASE) + PMC_WAKE_STATUS);
-	return status & TEGRA_WAKE_GPIO_PV2 ? KEY_POWER : KEY_RESERVED;
-}
-#endif
+
+
 
 

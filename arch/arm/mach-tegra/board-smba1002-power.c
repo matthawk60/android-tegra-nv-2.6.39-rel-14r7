@@ -439,7 +439,7 @@ static struct tps6586x_platform_data tps_platform = {
 static struct i2c_board_info __initdata smba1002_regulators[] = {
 	{
 		I2C_BOARD_INFO("tps6586x", 0x34),
-		//.irq = INT_EXTERNAL_PMU,
+		.irq = INT_EXTERNAL_PMU,
 		.platform_data = &tps_platform,
 	},
 };
