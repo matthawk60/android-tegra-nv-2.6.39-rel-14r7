@@ -98,8 +98,8 @@ struct tegra_sdhci_platform_data smba1002_wlan_data = {
 //        .force_hs = 0,
 	.mmc_data = {
         	.register_status_notify = smba1002_wifi_status_register,
-//		.embedded_sdio = &embedded_sdio_data0,
-//		.built_in = 1,
+		.embedded_sdio = &embedded_sdio_data0,
+		.built_in = 1,
 	},
 	.cd_gpio = -1,
 	.wp_gpio = -1,
