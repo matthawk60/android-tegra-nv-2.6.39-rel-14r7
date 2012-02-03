@@ -733,7 +733,7 @@ static int bq20z75_resume(struct i2c_client *client)
 #endif
 
 static const struct i2c_device_id bq20z75_id[] = {
-	{ "bq20z75", 0 },
+	{ "bq20z75-battery", 0 },
 	{}
 };
 MODULE_DEVICE_TABLE(i2c, bq20z75_id);
