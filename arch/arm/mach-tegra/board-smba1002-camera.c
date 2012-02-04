@@ -38,6 +38,7 @@
 #include <mach/nand.h>
 #include <mach/iomap.h>
 #include <linux/i2c.h>
+#include <media/mt9v113.h>
 
 #include "board.h"
 #include "board-smba1002.h"
@@ -57,7 +58,8 @@ static struct platform_device *smba1002_camera_pm_devices[] __initdata = {
 
 static struct i2c_board_info __initdata smba1002_i2c_bus3_sensor_info[] = {
          {
-                I2C_BOARD_INFO("ov5650", 0x3c),
+		I2C_BOARD_INFO(MT9V113_MODULE_NAME, MT9V113_I2C_ADDR),
+		//.platform_data = &beagle_mt9v113_platform_data,
          },
 };
 

@@ -685,7 +685,7 @@ static void __init tegra_smba1002_init(void)
 	smba1002_setup_bluesleep();
 
 	/* Register Camera powermanagement devices */
-//	smba1002_camera_register_devices();
+	//smba1002_camera_register_devices();
 
 	/* Register NAND flash devices */
 	smba1002_nand_register_devices();
