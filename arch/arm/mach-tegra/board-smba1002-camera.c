@@ -59,6 +59,7 @@ static struct platform_device *smba1002_camera_pm_devices[] __initdata = {
 static struct i2c_board_info __initdata smba1002_i2c_bus3_sensor_info[] = {
          {
 		I2C_BOARD_INFO(MT9V113_MODULE_NAME, MT9V113_I2C_ADDR),
+		.irq = TEGRA_GPIO_TO_IRQ(SMBA1002_CAMERA_POWER),
 		//.platform_data = &beagle_mt9v113_platform_data,
          },
 };

@@ -157,8 +157,8 @@ int __init smba1002_usb_register_devices(void)
 {
 	tegra_usb_phy_init(tegra_usb_phy_pdata, ARRAY_SIZE(tegra_usb_phy_pdata));
 	/* OTG should be the first to be registered */
-	//gpio_request(SMBA1002_USB0_VBUS, "USB0 VBUS");
-	//gpio_direction_output(SMBA1002_USB0_VBUS, 0 );
+	gpio_request(SMBA1002_USB0_VBUS, "USB0 VBUS");
+	gpio_direction_output(SMBA1002_USB0_VBUS, 0 );
 
 	tegra_otg_device.dev.platform_data = &tegra_otg_pdata;
 	platform_device_register(&tegra_otg_device);
