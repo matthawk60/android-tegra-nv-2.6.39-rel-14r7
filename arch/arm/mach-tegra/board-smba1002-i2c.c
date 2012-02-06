@@ -37,6 +37,36 @@
 #include "board-smba1002.h"
 
 static struct tegra_i2c_platform_data smba1002_i2c1_platform_data = {
+      .adapter_nr = 0,
+      .bus_count = 1,
+      .bus_clk_rate = { 100000, 0 },
+      .scl_gpio = {TEGRA_GPIO_PC4, 0},
+      .sda_gpio = {TEGRA_GPIO_PC5, 0},
+      .arb_recovery = arb_lost_recovery,
+};
+
+static struct tegra_i2c_platform_data smba1002_i2c2_platform_data = {
+      .adapter_nr = 1,
+      .bus_count = 1,
+      .bus_clk_rate = { 100000, 0 },
+      .scl_gpio = {TEGRA_GPIO_PT5, 0},
+      .sda_gpio = {TEGRA_GPIO_PT6, 0},
+      .arb_recovery = arb_lost_recovery,
+};
+
+static struct tegra_i2c_platform_data smba1002_i2c3_platform_data = {
+      .adapter_nr = 3,
+      .bus_count = 1,
+      .bus_clk_rate = { 80000, 0 },
+      //.is_slave = true,
+      .slave_addr = 0x8a,
+      .scl_gpio = {TEGRA_GPIO_PBB2, 0},
+      .sda_gpio = {TEGRA_GPIO_PBB3, 0},
+      .arb_recovery = arb_lost_recovery,
+};
+
+/*
+static struct tegra_i2c_platform_data smba1002_i2c1_platform_data = {
 	.adapter_nr	= 0,
 	.bus_count	= 1,
 	.bus_clk_rate	= { 100000, 0 },
@@ -65,24 +95,27 @@ static struct tegra_i2c_platform_data smba1002_i2c3_platform_data = {
 	.bus_count	= 1,
 	.bus_clk_rate	= { 100000, 0 },
 };
-
+*/
 static struct tegra_i2c_platform_data smba1002_dvc_platform_data = {
 	.adapter_nr	= 4,
 	.bus_count	= 1,
 	.bus_clk_rate	= { 100000, 0 },
 	.is_dvc		= true,
+	.scl_gpio = {TEGRA_GPIO_PZ6, 0},
+	.sda_gpio = {TEGRA_GPIO_PZ7, 0},
+	.arb_recovery = arb_lost_recovery,
 };
 
 int __init smba1002_i2c_register_devices(void)
 {
 	tegra_i2c_device1.dev.platform_data = &smba1002_i2c1_platform_data;
 	tegra_i2c_device2.dev.platform_data = &smba1002_i2c2_platform_data;
-	tegra_i2c_device3.dev.platform_data = &smba1002_i2c3_platform_data;
+	//tegra_i2c_device3.dev.platform_data = &smba1002_i2c3_platform_data;
 	tegra_i2c_device4.dev.platform_data = &smba1002_dvc_platform_data;
 
 	platform_device_register(&tegra_i2c_device1);
 	platform_device_register(&tegra_i2c_device2);
-	platform_device_register(&tegra_i2c_device3);
+	//platform_device_register(&tegra_i2c_device3);
 	platform_device_register(&tegra_i2c_device4);
 	
 	return 0;

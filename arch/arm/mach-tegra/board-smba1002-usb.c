@@ -138,6 +138,7 @@ static struct tegra_ehci_platform_data tegra_ehci_pdata[] = {
 			.phy_config = &utmi_phy_config[0],
 			.operating_mode = TEGRA_USB_OTG,
 			.power_down_on_bus_suspend = 0,
+			.hotplug = 0,
       },
       [1] = {
 			.phy_config = &utmi_phy_config[1],
@@ -164,7 +165,7 @@ int __init smba1002_usb_register_devices(void)
 	platform_device_register(&tegra_otg_device);
 
 	platform_device_register(&tegra_udc_device);
-	// platform_device_register(&tegra_ehci1_device);
+	platform_device_register(&tegra_ehci1_device);
 
 	tegra_ehci3_device.dev.platform_data = &tegra_ehci_pdata[1];
 	platform_device_register(&tegra_ehci3_device);

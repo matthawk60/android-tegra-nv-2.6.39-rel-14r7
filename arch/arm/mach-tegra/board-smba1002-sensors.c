@@ -30,17 +30,11 @@
 #include "gpio-names.h"
 #include "cpu-tegra.h"
 
-static struct bq20z75_platform_data smba1002_bq20z75_pdata = {
-	//.battery_detect = TEGRA_GPIO_PH2,
-	//.battery_detect_present = 1,
-	.i2c_retry_count = 5,
-};
 static struct i2c_board_info __initdata smba1002_i2c_bus0_sensor_info[] = {
-	//{
-	//	I2C_BOARD_INFO("bq20z75-battery", 0x0B),
-	//	.irq = TEGRA_GPIO_TO_IRQ(TEGRA_GPIO_PH2),
-	//	.platform_data = &smba1002_bq20z75_pdata,
-	//},
+	{
+		I2C_BOARD_INFO("bq20z75-battery", 0x0B),
+		.irq = TEGRA_GPIO_TO_IRQ(TEGRA_GPIO_PH2),
+	},
 	{
 		I2C_BOARD_INFO("so340010_kbd", 0x2c),
 		.irq = TEGRA_GPIO_TO_IRQ(TEGRA_GPIO_PV6),
