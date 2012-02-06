@@ -404,7 +404,7 @@ static int tegra_i2c_init(struct tegra_i2c_dev *i2c_dev)
 
 	/* Interrupt generated before sending stop signal so
 	* wait for some time so that stop signal can be send proerly */
-	mdelay(1);
+	mdelay(10);
 
 	tegra_periph_reset_assert(i2c_dev->clk);
 	udelay(2);
