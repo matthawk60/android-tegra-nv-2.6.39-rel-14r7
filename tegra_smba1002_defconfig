@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux/arm 2.6.39.4 Kernel Configuration
-# Fri Feb  3 21:54:57 2012
+# Sun Feb  5 18:56:30 2012
 #
 CONFIG_ARM=y
 CONFIG_HAVE_PWM=y
@@ -334,7 +334,7 @@ CONFIG_TEGRA_EMC_TO_DDR_CLOCK=2
 # CONFIG_TEGRA_CONVSERVATIVE_GOV_ON_EARLYSUPSEND is not set
 # CONFIG_TEGRA_LEGACY_AUDIO is not set
 CONFIG_TEGRA_STAT_MON=y
-CONFIG_USB_HOTPLUG=y
+# CONFIG_USB_HOTPLUG is not set
 # CONFIG_TEGRA_DYNAMIC_PWRDET is not set
 CONFIG_TEGRA_USB_MODEM_POWER=y
 # CONFIG_TEGRA_BB_XMM_POWER is not set
