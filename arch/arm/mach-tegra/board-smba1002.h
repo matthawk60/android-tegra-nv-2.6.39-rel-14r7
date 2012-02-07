@@ -56,12 +56,12 @@
 #define SMBA1002_MEM_SIZE 		SZ_512M			/* Total memory */
 #define SMBA1002_MEM_BANKS		1
 
-/*#define SMBA1002_GPU_MEM_SIZE 	SZ_128M*/		/* Memory reserved for GPU */
+#define SMBA1002_GPU_MEM_SIZE 	SZ_128M		/* Memory reserved for GPU */
 /*#define SMBA1002_GPU_MEM_SIZE 	SZ_64M*/		/* Memory reserved for GPU */
-#define SMBA1002_GPU_MEM_SIZE 	(3*SZ_32M)		/* Memory reserved for GPU */
+/*#define SMBA1002_GPU_MEM_SIZE 	(3*SZ_32M)*/		/* Memory reserved for GPU */
 
-#define SMBA1002_FB1_MEM_SIZE 	SZ_4M			/* Memory reserved for Framebuffer 1: LCD */
-#define SMBA1002_FB2_MEM_SIZE 	SZ_2M			/* Memory reserved for Framebuffer 2: HDMI out */
+#define SMBA1002_FB1_MEM_SIZE 	SZ_8M			/* Memory reserved for Framebuffer 1: LCD */
+#define SMBA1002_FB2_MEM_SIZE 	SZ_8M			/* Memory reserved for Framebuffer 2: HDMI out */
 
 #define DYNAMIC_GPU_MEM 1						/* use dynamic memory for GPU */
 
@@ -168,9 +168,9 @@ extern int smba1002_camera_register_devices(void);
 
 #define TEGRA_ROUND_ALLOC(x) (((x) + 4095) & ((unsigned)(-4096)))
 /*Framebuffer Size for default Gtablet Panel*/
-#define SMBA1002_FB_SIZE TEGRA_ROUND_ALLOC(1024*600*(16/8)*SMBA1002_FB_PAGES)
+#define SMBA1002_FB_SIZE TEGRA_ROUND_ALLOC(1024*600*(32/8)*SMBA1002_FB_PAGES)
 /*Frambuffer size for 720p HDMI Framebuffer Output*/
-#define SMBA1002_FB_HDMI_SIZE TEGRA_ROUND_ALLOC(1280*720*(32/8)*2)
+#define SMBA1002_FB_HDMI_SIZE TEGRA_ROUND_ALLOC(1920*1080*(32/8)*2)
 
 
 #endif
