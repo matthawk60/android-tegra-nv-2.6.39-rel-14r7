@@ -90,6 +90,7 @@ struct tegra_dc_hdmi_data {
 
 	spinlock_t			suspend_lock;
 	bool				suspended;
+	bool                            hpd_pending;
 	bool				eld_retrieved;
 	bool				clk_enabled;
 	unsigned			audio_freq;
@@ -869,7 +870,9 @@ static irqreturn_t tegra_dc_hdmi_irq(int irq, void *ptr)
 	unsigned long flags;
 
 	spin_lock_irqsave(&hdmi->suspend_lock, flags);
-	if (!hdmi->suspended) {
+	if (hdmi->suspended) {
+                hdmi->hpd_pending = true;
+        } else {
 		__cancel_delayed_work(&hdmi->work);
 		if (tegra_dc_hdmi_hpd(dc))
 			queue_delayed_work(system_nrt_wq, &hdmi->work,
@@ -902,12 +905,18 @@ static void tegra_dc_hdmi_resume(struct tegra_dc *dc)
 	spin_lock_irqsave(&hdmi->suspend_lock, flags);
 	hdmi->suspended = false;
 
-	if (tegra_dc_hdmi_hpd(dc))
+	if (hdmi->hpd_pending) {
+                if (tegra_dc_hdmi_hpd(dc))
+                        queue_delayed_work(system_nrt_wq, &hdmi->work,
+                                           msecs_to_jiffies(100));
+                else
+                        queue_delayed_work(system_nrt_wq, &hdmi->work,
+                                           msecs_to_jiffies(30));
+                hdmi->hpd_pending = false;
+        } else if (tegra_dc_hdmi_hpd(dc)) { /* Check for HDMI Peripheral */
 		queue_delayed_work(system_nrt_wq, &hdmi->work,
 				   msecs_to_jiffies(100));
-	else
-		queue_delayed_work(system_nrt_wq, &hdmi->work,
-				   msecs_to_jiffies(30));
+        }
 
 	spin_unlock_irqrestore(&hdmi->suspend_lock, flags);
 	tegra_nvhdcp_resume(hdmi->nvhdcp);
@@ -1050,6 +1059,7 @@ static int tegra_dc_hdmi_init(struct tegra_dc *dc)
 	hdmi->disp1_clk = disp1_clk;
 	hdmi->disp2_clk = disp2_clk;
 	hdmi->suspended = false;
+	hdmi->hpd_pending = false;
 	hdmi->eld_retrieved= false;
 	hdmi->clk_enabled = false;
 	hdmi->audio_freq = 44100;
