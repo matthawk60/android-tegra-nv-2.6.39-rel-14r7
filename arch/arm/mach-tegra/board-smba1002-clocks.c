@@ -1,7 +1,7 @@
 /*
  * arch/arm/mach-tegra/board-smba1002-clocks.c
  *
- * Copyright (C) 2011 Eduardo José Tagle <ejtagle@tutopia.com>
+ * Copyright (C) 2011 Eduardo Josï¿½ Tagle <ejtagle@tutopia.com>
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -135,8 +135,8 @@ static __initdata struct tegra_clk_init_table smba1002_clk_init_table[] = {
 	{ "kfuse",		"clk_m",		 12000000,	true},		/* kfuse-tegra */ /* always on - no init req */
 
 	/* Peripherals - Turned on demand */
-//	{ "3d",     	"pll_c",    	300000000,  false},		/* tegra_grhost, gr3d */
-	{ "3d",     	"pll_c",    	333000000,  false},		/* tegra_grhost, gr3d */
+	{ "3d",     	"pll_c",    	300000000,  false},		/* tegra_grhost, gr3d */
+//	{ "3d",     	"pll_c",    	333000000,  false},		/* tegra_grhost, gr3d */
 	{ "2d",     	"pll_c",    	300000000,  false},		/* tegra_grhost, gr2d */
 	{ "epp",    	"pll_c",    	300000000, 	false}, 	/* tegra_grhost */	
 //	{ "mpe",		"pll_c",		300000000,	false},		/* tegra_grhost */	
