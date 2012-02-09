@@ -225,16 +225,7 @@ static int tegra_pinmux_set_func(const struct tegra_pingroup_config *config)
 		func = pingroups[pg].func_safe;
 
 	if (func & TEGRA_MUX_RSVD) {
-		for (i = 0; i < 4; i++) {
-			if (pingroups[pg].funcs[i] & TEGRA_MUX_RSVD)
-				mux = i;
-
-			if (pingroups[pg].funcs[i] == func) {
-				mux = i;
-				find = 1;
-				break;
-			}
-		}
+		mux = func & 0x3;
 	} else {
 		for (i = 0; i < 4; i++) {
 			if (pingroups[pg].funcs[i] == func) {
@@ -251,11 +242,6 @@ static int tegra_pinmux_set_func(const struct tegra_pingroup_config *config)
 		WARN_ON(1);
 		return -EINVAL;
 	}
-
-	if (!find)
-		pr_warn("The pingroup %s was configured to %s instead of %s\n",
-			pingroup_name(pg), func_name(pingroups[pg].funcs[mux]),
-			func_name(func));
 
 	spin_lock_irqsave(&mux_lock, flags);
 

@@ -115,8 +115,8 @@ static __initdata struct tegra_clk_init_table smba1002_clk_init_table[] = {
 
 	/* pll_d and pll_d_out0 are clock sources for HDMI output */
 	{ "pll_d",		"clk_m",		  5000000,	true},		/* hdmi clock */
-//	{ "pll_d_out0", "pll_d",    	 5000000,  true},		/* hdmi clock */
-    { "pll_d_out0", "pll_d", 2500000 , true}, /* hdmi clock */
+	{ "pll_d_out0", "pll_d",    	 5000000,  true},		/* hdmi clock */
+//    { "pll_d_out0", "pll_d", 2500000 , true}, /* hdmi clock */
 
 	{ "clk_d",		"clk_m",		 24000000,	true},
 
@@ -224,11 +224,11 @@ static __initdata struct tegra_clk_init_table smba1002_clk_init_table[] = {
 	{ "disp1",  	"pll_p",    	216000000, 	false},		/* tegradc.0 */
 	{ "disp2",  	"pll_p",    	216000000, 	false},		/* tegradc.1 */	
 	
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,38)	
-	{ "dsi",		"pll_d",		  5000000,	false},		/* tegra_dc.0, tegra_dc.1 */
-#else
-	{ "dsi",		"pll_d_out0",	  2500000,	false},		/* tegra_dc.0, tegra_dc.1 - bug on kernel 2.6.36*/
-#endif
+//#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,38)	
+//	{ "dsia",		"pll_d",		  5000000,	false},		/* tegra_dc.0, tegra_dc.1 */
+//#else
+	{ "dsia",		"pll_d_out0",	  5000000,	false},		/* tegra_dc.0, tegra_dc.1 - bug on kernel 2.6.36*/
+//#endif
 	{ "hdmi",		"clk_m",		 12000000,	false},		/* tegra_dc.0, tegra_dc.1 */
 	
 	{ "spi",		"clk_m",		 12000000,	false},
