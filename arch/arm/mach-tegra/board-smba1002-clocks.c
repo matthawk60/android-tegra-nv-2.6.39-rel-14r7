@@ -1,7 +1,7 @@
 /*
  * arch/arm/mach-tegra/board-smba1002-clocks.c
  *
- * Copyright (C) 2011 Eduardo José Tagle <ejtagle@tutopia.com>
+ * Copyright (C) 2011 Eduardo Josï¿½ Tagle <ejtagle@tutopia.com>
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -138,7 +138,7 @@ static __initdata struct tegra_clk_init_table smba1002_clk_init_table[] = {
 //	{ "3d",     	"pll_c",    	300000000,  false},		/* tegra_grhost, gr3d */
 	{ "3d",     	"pll_c",    	333000000,  false},		/* tegra_grhost, gr3d */
 	{ "2d",     	"pll_c",    	300000000,  false},		/* tegra_grhost, gr2d */
-	{ "epp",    	"pll_c",    	300000000, 	false}, 	/* tegra_grhost */	
+	{ "epp",    	"pll_c",    	266400000, 	false}, 	/* tegra_grhost */	
 //	{ "mpe",		"pll_c",		300000000,	false},		/* tegra_grhost */	
 	{ "mpe",		"pll_c",		266400000,	false},		/* tegra_grhost */	
 //	{ "host1x",		"pll_p",		144000000,	false},		/* tegra_grhost */
@@ -257,7 +257,7 @@ static __initdata struct tegra_clk_init_table smba1002_clk_init_table[] = {
 	
 	{ "vcp",		"clk_m",		 12000000,	false},		/* tegra_avp */	
 	{ "bsea",		"clk_m",		 12000000,	false},		/* tegra_avp */	
-	{ "vde",		"pll_p",		216000000,	false},		/* tegra-avp */
+	{ "vde",		"pll_p",		266400000,	false},		/* tegra-avp */
 	
 	{ "bsev",		"clk_m",		 12000000,	false},		/* tegra_aes */	
 
