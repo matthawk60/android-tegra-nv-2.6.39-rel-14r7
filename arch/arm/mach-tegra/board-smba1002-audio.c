@@ -1,7 +1,7 @@
 /*
  * arch/arm/mach-tegra/board-smba1002-audio.c
  *
- * Copyright (C) 2011 Eduardo José Tagle <ejtagle@tutopia.com>
+ * Copyright (C) 2011 Eduardo JosÃ© Tagle <ejtagle@tutopia.com>
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -15,7 +15,7 @@
  */
 
 /* All configurations related to audio */
-/*#define ALC5623_IS_MASTER */
+//#define ALC5623_IS_MASTER
  
 #include <linux/console.h>
 #include <linux/kernel.h>
@@ -70,15 +70,15 @@ static struct tegra_audio_platform_data tegra_audio_pdata[] = {
 	[0] = {
 		.i2s_master		= true,		/* CODEC is slave for audio */
 		.dma_on			= true,  	/* use dma by default */
-#ifdef SMBA1002_48KHZ_AUDIO						
-		.i2s_master_clk = 48000,
-		.i2s_clk_rate 	= 12288000,
-#else
+//#ifdef SMBA1002_48KHZ_AUDIO						
+//		.i2s_master_clk = 48000,
+//		.i2s_clk_rate 	= 12288000,
+//#else
 		.i2s_master_clk = 44100,
-		.i2s_clk_rate 	= 11289600,
-#endif
+		.i2s_clk_rate 	= 26000000,
+//#endif
 		.dap_clk	  	= "cdev1",
-		.audio_sync_clk = "audio_2x",
+		.audio_sync_clk = "audio",
 		.mode			= I2S_BIT_FORMAT_I2S,
 		.fifo_fmt		= I2S_FIFO_PACKED,
 		.bit_size		= I2S_BIT_SIZE_16,
@@ -94,7 +94,7 @@ static struct tegra_audio_platform_data tegra_audio_pdata[] = {
 		.dsp_master_clk = 8000,
 		.i2s_clk_rate	= 2000000,
 		.dap_clk		= "cdev1",
-		.audio_sync_clk = "audio_2x",
+		.audio_sync_clk = "audio",
 		.mode			= I2S_BIT_FORMAT_DSP,
 		.fifo_fmt		= I2S_FIFO_16_LSB,
 		.bit_size		= I2S_BIT_SIZE_16,
