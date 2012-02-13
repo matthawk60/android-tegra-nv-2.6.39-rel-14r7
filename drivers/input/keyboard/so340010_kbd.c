@@ -24,7 +24,7 @@
 
 #define DRIVER_NAME	"so340010_kbd"
 
-#define SO340010_I2C_TRY_COUNT			10
+#define SO340010_I2C_TRY_COUNT			3
 
 #define SO340010_TIMER_INTERVAL			2000
 
@@ -184,7 +184,7 @@ static int so340010_i2c_read(struct so340010_kbd_dev *dev, unsigned short reg_st
 
 	msgs[0].addr = dev->client->addr;
 	msgs[0].len = 2;
-	msgs[0].buf = reg_buffer;
+	msgs[0].buf = &reg_buffer;
 	msgs[0].flags = 0;
 	
 	msgs[1].addr = dev->client->addr;
@@ -383,7 +383,7 @@ static void so340010_timer_func(unsigned long __dev)
 static void so340010_work_func(struct work_struct *work)
 {
 	int i, ret;
-	unsigned short gpio_val, button_val;
+	unsigned int gpio_val, button_val;
 	struct so340010_kbd_dev *dev;
 
 	dev = (struct so340010_kbd_dev *)container_of(work, struct so340010_kbd_dev, work);
@@ -539,16 +539,15 @@ static int so340010_kbd_probe(struct i2c_client *client,
 	}
 
 	INIT_WORK(&dev->work, so340010_work_func);
-	if(request_threaded_irq(client->irq, NULL, so340010_irq_callback, IRQF_TRIGGER_FALLING, 
-			"so340010_kbd", dev)) {
-	  logd(TAG "Failed IRQ enable \r\n");
-	 goto failed_enable_irq;}
-
-
 	if (so340010_reset(dev)) {
 		logd(TAG "so340010_kbd_probe so340010_reset fail \r\n");
 		goto failed_reset_hardware;
 	}
+
+	if(request_threaded_irq(client->irq, NULL, so340010_irq_callback, IRQF_TRIGGER_FALLING, 
+			"so340010_kbd", dev))
+		goto failed_enable_irq;
+
 
 #if (__SO340010_GENERIC_DEBUG__)
 	if (device_create_file(&client->dev, &dev_attr_debug)

@@ -61,76 +61,26 @@
    divider/multiplier ratios. Check tegra2clocks.c before modifying
    this table ! */
 static __initdata struct tegra_clk_init_table smba1002_clk_init_table[] = {
-	/* name			parent				rate	enabled */
-	/* always on clocks */
+	/* name parent rate enabled */
+	{ "clk_m",		NULL,		 	 		0,	true},
+	{ "pll_s",		"clk_32k",		 12000000,	true},
+	{ "pll_m",		"clk_m",		666000000,	true},
+	/* 32khz system clock */
+	{ "clk_32k", NULL, 32768, true}, /* always on */
+	{ "rtc", "clk_32k", 32768, true}, /* rtc-tegra : must be always on */
+	{ "blink", "clk_32k", 32768, false}, /* used for bluetooth */
+	/* Master clock */
+	{ "pll_p",		"clk_m",		216000000,	true},		/* must be always on */
+	{ "sdmmc1",		"pll_p",		 48000000,	false},		/* sdhci-tegra.0 */
+	{ "sdmmc2",		"pll_p",		 48000000, 	false}, /* sdhci-tegra.1 */
 	
-	{ "pll_p_out1",	"pll_p",		 28800000,	true},		/* must be always on - audio clocks ...*/
-//	{ "pll_p_out2",	"pll_p",		 48000000,	true},		/* must be always on - usb perhaps ? unused ?*/
-
-
-	/* pll_a and pll_a_out0 are clock sources for audio interfaces */
-#ifdef ALC5623_IS_MASTER
-	{ "pll_a",		"pll_p_out1",	 73728000,	true},		/* always on - audio clocks */
-	{ "pll_a_out0",	"pll_a",		 18432000,	true},		/* always on - i2s audio */
-#else
-#       ifdef SMBA1002_48KHZ_AUDIO
-        { "pll_a",              "pll_p_out1",    73728000,      true},          /* always on - audio clocks */
-        { "pll_a_out0", 	"pll_a",         12288000,      true},          /* always on - i2s audio */
-#       else
-        { "pll_a",              "pll_p_out1",    73728000,      true},          /* always on - audio clocks */
-        { "pll_a_out0", 	"pll_a",         73728000,      true},          /* always on - i2s audio */
-#       endif
-#endif
+	{ "pwm", "clk_m", 12000000, true}, /* tegra-pwm.0 tegra-pwm.1 tegra-pwm.2 tegra-pwm.3*/
+        { "i2s1", "pll_a_out0", 2822400, true}, /* i2s.0 */
+        { "i2s2", "pll_a_out0", 11289600, true}, /* i2s.1 */
+	{ "cdev1", NULL, 0, true},
+	{ "uartc", "pll_p", 216000000, false}, /* tegra_uart.2 uart.0 */
 	{ "clk_d",		"clk_m",		 24000000,	true},
-		
-#ifdef ALC5623_IS_MASTER		
-	{ "i2s1",   	"clk_m",         12000000,  		true},		/* i2s.0 */
-	{ "i2s2",		"clk_m",	     12000000,	true},		/* i2s.1 */
-	{ "audio", 		"i2s1",          12000000,  	true},
-	{ "audio_2x",	"audio",		 24000000,	true},
-	{ "spdif_in",	"pll_p",		 36000000,	true},
-	{ "spdif_out",  "pll_a_out0",  	  	 6144000,  	true},
-#else
-#       ifdef SMBA1002_48KHZ_AUDIO
-        { "i2s1",       "pll_a_out0",    	12288000,  	true},             /* i2s.0 */
-        { "i2s2",               "pll_a_out0",    12288000,      true},         /* i2s.1 */
-        { "audio",              "pll_a_out0",    12288000,  	true},
-        { "audio_2x",   "audio",                 24576000,      true},
-        { "spdif_in",   "pll_p",                 36000000,      true},
-        { "spdif_out",  "pll_a_out0",     	6144000,  	true},
-#       else
-        { "i2s1",       "pll_a_out0",     	 26000000,  	true},             /* i2s.0 */
-        { "i2s2",               "pll_a_out0",    26000000,      true},         /* i2s.1 */
-        { "audio",              "pll_a_out0",    26000000,  	true},
-        { "audio_2x",   "audio",                 26000000,      true},
-        { "spdif_in",   "pll_p",                 36000000,      true},
-        { "spdif_out",  "pll_a_out0",     	5644800,  	true},
-#       endif
-#endif
-	
-	/* cdev[1-2] take the configuration (clock parents) from the pinmux config, 
-	   That is why we are setting it to NULL */
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,38)
-#define CDEV1 "cdev1"
-#define CDEV2 "cdev2"
-#else
-#define CDEV1 "clk_dev1"
-#define CDEV2 "clk_dev2"
-#endif
-#       ifdef SMBA1002_48KHZ_AUDIO
-//        { CDEV1,   NULL /*"pll_a_out0"*/,12288000,  false},             /* used as audio CODEC MCLK */
-        { CDEV1,   NULL /*"pll_a_out0"*/,0,  true},             /* used as audio CODEC MCLK */
-#       else
-//        { CDEV1,   NULL /*"pll_a_out0"*/,11289600,  false},             /* used as audio CODEC MCLK */
-        { CDEV1,   NULL /*"pll_a_out0"*/,0,  true},             /* used as audio CODEC MCLK */
-#       endif
-
-//	{ CDEV2,   NULL,	26000000,  false}, 	/* probably used as USB clock - perhaps 24mhz ?*/	
-	{ CDEV2,   NULL,	0,  false}, 	/* probably used as USB clock - perhaps 24mhz ?*/	
-	
-	{ "ndflash",	"pll_p",		108000000,	true},		/* tegra_nand -> should start disabled, but if we do, then nand stops working */
-		
-	{ NULL,		NULL,		0,		0},
+	{ NULL, NULL, 0, 0},
 };
 
 void __init smba1002_clks_init(void)
