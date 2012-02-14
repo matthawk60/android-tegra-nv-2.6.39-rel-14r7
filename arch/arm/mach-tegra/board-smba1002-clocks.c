@@ -66,10 +66,13 @@ static __initdata struct tegra_clk_init_table smba1002_clk_init_table[] = {
 { "clk_32k", NULL, 32768, true}, /* always on */
 { "rtc", "clk_32k", 32768, true}, /* rtc-tegra : must be always on */
 { "blink", "clk_32k", 32768, false}, /* used for bluetooth */
+{ "sdmmc1",    "pll_p",     48000000,   false}, /* sdhci-tegra.1 */
 { "sdmmc2", "pll_p", 48000000, false}, /* sdhci-tegra.1 */
+{ "sdmmc3", "pll_p", 48000000, false}, /* sdhci-tegra.1 */
+{ "sdmmc4", "pll_p", 48000000, false}, /* sdhci-tegra.1 */
 { "pwm", "clk_m", 12000000, true}, /* tegra-pwm.0 tegra-pwm.1 tegra-pwm.2 tegra-pwm.3*/
 { "uartc", "pll_p", 216000000, false}, /* tegra_uart.2 uart.0 */
-
+{ "clk_d",		"clk_m",		 24000000,	true},
 
 
 { "pll_p_out1", "pll_p", 28800000, true}, /* must be always on - audio clocks ...*/
