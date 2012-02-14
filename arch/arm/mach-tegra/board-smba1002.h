@@ -132,8 +132,6 @@
 extern void smba1002_gps_mag_poweron(void);
 extern void smba1002_gps_mag_poweroff(void);
 extern void smba1002_gps_mag_init(void);
-extern int smba1002_bt_wifi_gpio_set(bool on);
-extern int smba1002_bt_wifi_gpio_init(void);
 
 extern void smba1002_wifi_set_cd(int val);
 
