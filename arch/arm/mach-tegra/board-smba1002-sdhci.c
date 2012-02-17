@@ -54,7 +54,7 @@ static struct wifi_platform_data smba1002_wifi_control = {
 
 
 static struct platform_device smba1002_wifi_device = {
-        .name           = "bcm4329_wlan",
+        .name           = "bcmdhd_wlan",
         .id             = 1,
         .dev            = {
                 .platform_data = &smba1002_wifi_control,
@@ -106,7 +106,6 @@ struct tegra_sdhci_platform_data smba1002_wlan_data = {
 	.wp_gpio = -1,
 	.power_gpio = -1,
 	.has_no_vreg = 1,
-	.is_8bit = 1,
 };
 
 /* Used to set the virtual CD of wifi adapter */
@@ -140,7 +139,9 @@ static int smba1002_wifi_power(int on)
 
 static int smba1002_wifi_reset(int on)
 {
-        pr_debug("%s: do nothing\n", __func__);
+	gpio_set_value(ADAM_WLAN_RESET, !on);
+        pr_debug("%s: %d\n", __func__, on);
+//	pr_debug("%s: do nothing, on = %d\n", __func__, on);
         return 0;
 }
 

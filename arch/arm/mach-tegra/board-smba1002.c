@@ -665,9 +665,6 @@ static void __init tegra_smba1002_init(void)
 	/* Register touchscreen devices */
 	smba1002_touch_register_devices();
 	
-	/* Register SDHCI devices */
-	smba1002_sdhci_register_devices();
-
 	/* Register accelerometer device */
 	smba1002_sensors_register_devices();
 	
@@ -690,6 +687,8 @@ static void __init tegra_smba1002_init(void)
 	/* Register NAND flash devices */
 	smba1002_nand_register_devices();
 	
+	/* Register SDHCI devices */
+	smba1002_sdhci_register_devices();	
 	
 	tegra_release_bootloader_fb();
 #ifdef CONFIG_TEGRA_WDT_RECOVERY
