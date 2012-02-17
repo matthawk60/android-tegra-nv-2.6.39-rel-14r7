@@ -63,10 +63,10 @@ static struct platform_device smba1002_wifi_device = {
 
 
 /* 2.6.36 version has a hook to check card status. Use it */
-/*static unsigned int smba1002_wlan_status(struct device *dev)
+static unsigned int smba1002_wlan_status(struct device *dev)
 {
 	return smba1002_wlan_cd;
-}*/
+}
 
 static int smba1002_wifi_status_register(
 		void (*callback)(int card_present, void *dev_id),
@@ -100,6 +100,7 @@ struct tegra_sdhci_platform_data smba1002_wlan_data = {
         	.register_status_notify = smba1002_wifi_status_register,
 		.embedded_sdio = &embedded_sdio_data0,
 		.built_in = 1,
+		.status = smba1002_wlan_status,
 	},
 	.cd_gpio = -1,
 	.wp_gpio = -1,

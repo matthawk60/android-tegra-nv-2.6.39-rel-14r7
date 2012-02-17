@@ -597,6 +597,8 @@ static int __devinit bq20z75_probe(struct i2c_client *client,
 		return -ENOMEM;
 
 	bq20z75_device->client = client;
+	//flags = bq20z75_device->client->flags;
+	//bq20z75_device->client->flags &= ~I2C_M_IGNORE_NAK;
 	bq20z75_device->enable_detection = false;
 	bq20z75_device->gpio_detect = false;
 	bq20z75_device->power_supply.name = "battery";
