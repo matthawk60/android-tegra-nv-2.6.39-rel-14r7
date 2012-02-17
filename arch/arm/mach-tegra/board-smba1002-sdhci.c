@@ -131,15 +131,9 @@ static int smba1002_wifi_power(int on)
 {
         pr_debug("%s: %d\n", __func__, on);
 
-        gpio_set_value(SMBA1002_WLAN_POWER, on);
-        mdelay(100);
+		smba1002_bt_wifi_gpio_set(on);
         gpio_set_value(SMBA1002_WLAN_RESET, on);
         mdelay(200);
-
-        if (on)
-                clk_enable(wifi_32k_clk);
-        else
-                clk_disable(wifi_32k_clk);
 
         return 0;
 }
@@ -184,22 +178,12 @@ static struct platform_device *smba1002_sdhci_devices[] __initdata = {
 
 static int __init smba1002_wifi_init(void)
 {
-        wifi_32k_clk = clk_get_sys(NULL, "blink");
-        if (IS_ERR(wifi_32k_clk)) {
-                pr_err("%s: unable to get blink clock\n", __func__);
-                return PTR_ERR(wifi_32k_clk);
-        }
-        tegra_gpio_enable(SMBA1002_WLAN_POWER);
+	// Init the power GPIO if it isn't already
+	smba1002_bt_wifi_gpio_init();
         tegra_gpio_enable(SMBA1002_WLAN_RESET);
 
-	gpio_request(SMBA1002_WLAN_POWER, "wifi_power");
 	gpio_request(SMBA1002_WLAN_RESET, "wifi_reset");
-        gpio_direction_output(SMBA1002_WLAN_POWER, 0);
         gpio_direction_output(SMBA1002_WLAN_RESET, 0);
-	udelay(5);
-        gpio_direction_output(SMBA1002_WLAN_POWER, 1);
-        gpio_direction_output(SMBA1002_WLAN_RESET, 1);
-        
 
         platform_device_register(&smba1002_wifi_device);
 

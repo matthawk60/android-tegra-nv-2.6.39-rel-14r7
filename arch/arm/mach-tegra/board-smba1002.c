@@ -490,7 +490,55 @@ void dump_bootflags(void)
 }
 #endif
 
+static struct clk *wifi_32k_clk;
+int smba1002_bt_wifi_gpio_init(void)
+{
+	static bool inited = 0;
+	// Check to see if we've already been init'ed.
+	if (inited) 
+		return 0;
+	wifi_32k_clk = clk_get_sys(NULL, "blink");
+        if (IS_ERR(wifi_32k_clk)) {
+                pr_err("%s: unable to get blink clock\n", __func__);
+                return -1;
+        }
+	gpio_request(SMBA1002_WLAN_POWER, "bt_wifi_power");
+        tegra_gpio_enable(SMBA1002_WLAN_POWER);
+	gpio_direction_output(SMBA1002_WLAN_POWER, 0);
+	inited = 1;
+	return 0;	
+}
+EXPORT_SYMBOL_GPL(smba1002_bt_wifi_gpio_init);
 
+int smba1002_bt_wifi_gpio_set(bool on)
+{
+       static int count = 0;
+	if (IS_ERR(wifi_32k_clk)) {
+		pr_err("%s: Clock wasn't obtained\n", __func__);
+		return -1;
+	}
+				
+	if (on) {
+		if (count == 0) {
+			gpio_set_value(SMBA1002_WLAN_POWER, 1);
+        		mdelay(100);
+			clk_enable(wifi_32k_clk);
+		}
+		count++;
+	} else {
+		if (count == 0) {
+			pr_err("%s: Unbalanced wifi/bt power disable requests\n", __func__);
+			return -1;
+		} else if (count == 1) {
+			        gpio_set_value(SMBA1002_WLAN_POWER, 0);
+        			mdelay(100);
+				clk_disable(wifi_32k_clk);
+		} 
+		--count;
+	}
+	return 0;		
+}
+EXPORT_SYMBOL_GPL(smba1002_bt_wifi_gpio_set);
 
 
 
