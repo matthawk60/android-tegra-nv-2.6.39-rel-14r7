@@ -1,7 +1,7 @@
 /*
  * arch/arm/mach-tegra/board-smba1002.h
  *
- * Copyright (C) 2011 Eduardo José Tagle <ejtagle@tutopia.com>
+ * Copyright (C) 2011 Eduardo Josï¿½ Tagle <ejtagle@tutopia.com>
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -22,8 +22,8 @@
 #define SMBA1002_BT_RESET 		TEGRA_GPIO_PU0 	/* 0= reset asserted */
 
 /* GPS and Magnetic sensor share the same enabling IO line */
-#define SMBA1002_GPSMAG_DISABLE  	TEGRA_GPIO_PV3 	/* 0= disabled */
-#define SMBA1002_3G_DISABLE		TEGRA_GPIO_PJ2 /* 0 = disabled */
+//#define SMBA1002_GPSMAG_DISABLE  	TEGRA_GPIO_PV3 	/* 0= disabled */
+//#define SMBA1002_3G_DISABLE		TEGRA_GPIO_PJ2 /* 0 = disabled */
 #define SMBA1002_KEY_VOLUMEUP 		TEGRA_GPIO_PV4 	/* 0=pressed */
 #define SMBA1002_KEY_VOLUMEDOWN 	TEGRA_GPIO_PD4 	/* 0=pressed */
 #define SMBA1002_KEY_POWER 		TEGRA_GPIO_PV2 	/* 0=pressed */
@@ -35,7 +35,7 @@
 
 
 #define SMBA1002_CAMERA_POWER 	TEGRA_GPIO_PBB5 /* 1=powered on */
-#define SMBA1002_CAMERA_ROTATION	TEGRA_GPIO_PX7
+//#define SMBA1002_CAMERA_ROTATION	TEGRA_GPIO_PX7
 
 #define SMBA1002_NAND_WPN		TEGRA_GPIO_PC7	/* NAND flash write protect: 0=writeprotected */
 
@@ -44,8 +44,8 @@
 #define SMBA1002_EN_VDD_PANEL	TEGRA_GPIO_PC6 
 #define SMBA1002_BL_VDD			TEGRA_GPIO_PW0
 #define SMBA1002_BL_PWM			TEGRA_GPIO_PU3 /* PWM */
-#define SMBA1002_HDMI_ENB		TEGRA_GPIO_PV5 /* unconfirmed */ // Does smba1002 have HDMI enbl?
-#define SMBA1002_HDMI_HPD		TEGRA_GPIO_PN7 /* 1=HDMI plug detected */
+//#define SMBA1002_HDMI_ENB		TEGRA_GPIO_PV5 /* unconfirmed */ // Does smba1002 have HDMI enbl?
+#define SMBA1002_HDMI_HPD		TEGRA_GPIO_PJ7 /* 1=HDMI plug detected */
 
 #define SMBA1002_BL_PWM_ID		0				/* PWM0 controls backlight */
 
@@ -91,16 +91,16 @@
 #define	SMBA1002_ENABLE_VDD_VID	TEGRA_GPIO_PD1	/* 1=enabled.  Powers HDMI. Wait 500uS to let it stabilize before returning */
 
 // TODO: Find whether there are any definitions for these?
-#define SMBA1002_SDIO0_CD		TEGRA_GPIO_PI5
-#define SMBA1002_SDIO0_POWER	TEGRA_GPIO_PD0	/* SDIO0 and SDIO2 power */
+/*#define SMBA1002_SDIO0_CD		TEGRA_GPIO_PI5
+#define SMBA1002_SDIO0_POWER	TEGRA_GPIO_PD0*/	/* SDIO0 and SDIO2 power */
 
 #define SMBA1002_SDHC_CD		TEGRA_GPIO_PI5
 #define SMBA1002_SDHC_WP		-1	/*1=Write Protected */
 #define SMBA1002_SDHC_POWER	TEGRA_GPIO_PD0
 
-#define SMBA1002_TS_IRQ		TEGRA_GPIO_PJ7
-#define SMBA1002_TS_RESET	TEGRA_GPIO_PH1
-#define SMBA1002_TS_POWER	TEGRA_GPIO_PK2
+//#define SMBA1002_TS_IRQ		TEGRA_GPIO_PN7
+#define SMBA1002_TS_RESET	TEGRA_GPIO_PN7
+#define SMBA1002_TS_POWER	TEGRA_GPIO_PK7
 //#define SMBA1002_TS_DISABLE	TEGRA_GPIO_PAA6 /* 0=enabled */
 
 //#define SMBA1002_FB_NONROTATE TEGRA_GPIO_PH1 /*1 = screen rotation locked */
@@ -113,8 +113,8 @@
 #define SMBA1002_LOW_BATT	TEGRA_GPIO_PW3 /*(0=low battery)*/
 #define SMBA1002_IN_S3		TEGRA_GPIO_PAA7 /*1 = in S3 */
 
-#define SMBA1002_USB0_VBUS		TEGRA_GPIO_PB0		/* 1= VBUS usb0 */
-#define SMBA1002_USB1_RESET		TEGRA_GPIO_PV1	/* 0= reset */
+#define SMBA1002_USB0_VBUS		TEGRA_GPIO_PX0		/* 1= VBUS usb0 */
+#define SMBA1002_USB1_RESET		TEGRA_GPIO_PV3	/* 0= reset */
 
 #define SMBA1002_HP_DETECT	TEGRA_GPIO_PW2 	/* HeadPhone detect for audio codec: 1=Hedphone plugged */
 
@@ -129,9 +129,9 @@
 /* The switch used to indicate rotation lock */
 //#define SW_ROTATION_LOCK 	(SW_MAX-1)
 
-extern void smba1002_gps_mag_poweron(void);
-extern void smba1002_gps_mag_poweroff(void);
-extern void smba1002_gps_mag_init(void);
+//extern void smba1002_gps_mag_poweron(void);
+//extern void smba1002_gps_mag_poweroff(void);
+//extern void smba1002_gps_mag_init(void);
 extern int smba1002_bt_wifi_gpio_set(bool on);
 extern int smba1002_bt_wifi_gpio_init(void);
 
