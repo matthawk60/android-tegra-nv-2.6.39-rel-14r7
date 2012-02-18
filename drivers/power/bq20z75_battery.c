@@ -64,7 +64,7 @@ enum {
 #define BATTERY_FULL_CHARGED		0x20
 #define BATTERY_FULL_DISCHARGED		0x10
 
-#define BATTERY_POLL_PERIOD		300000
+#define BATTERY_POLL_PERIOD		30000
 
 #define BQ20Z75_DATA(_psp, _addr, _min_value, _max_value)	\
 	{							\

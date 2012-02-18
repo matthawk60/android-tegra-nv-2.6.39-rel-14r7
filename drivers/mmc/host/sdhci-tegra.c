@@ -605,15 +605,27 @@ static int tegra_sdhci_pltfm_init(struct sdhci_host *host,
 	}
 
 
-if (!plat->mmc_data.built_in && !plat->has_no_vreg) {
+	if (!plat->mmc_data.built_in && !plat->has_no_vreg) {
+		if (plat->mmc_data.ocr_mask & SDHOST_1V8_OCR_MASK) {
+			tegra_host->vddio_min_uv = SDHOST_LOW_VOLT_MIN;
+			tegra_host->vddio_max_uv = SDHOST_LOW_VOLT_MAX;
+		} else {
+			/*
+			 * Set the minV and maxV to default
+			 * voltage range of 2.7V - 3.6V
+			 */
+			tegra_host->vddio_min_uv = SDHOST_HIGH_VOLT_MIN;
+			tegra_host->vddio_max_uv = SDHOST_HIGH_VOLT_MAX;
+		}
 		tegra_host->vdd_io_reg = regulator_get(mmc_dev(host->mmc), "vddio_sdmmc");
-		if (WARN_ON(IS_ERR_OR_NULL(tegra_host->vdd_io_reg))) {
+		if (IS_ERR_OR_NULL(tegra_host->vdd_io_reg)) {
 			dev_err(mmc_dev(host->mmc), "%s regulator not found: %ld\n",
 				"vddio_sdmmc", PTR_ERR(tegra_host->vdd_io_reg));
 			tegra_host->vdd_io_reg = NULL;
 		} else {
 			rc = regulator_set_voltage(tegra_host->vdd_io_reg,
-				3280000, 3320000);
+				tegra_host->vddio_min_uv,
+				tegra_host->vddio_max_uv);
 			if (rc) {
 				dev_err(mmc_dev(host->mmc), "%s regulator_set_voltage failed: %d",
 					"vddio_sdmmc", rc);
@@ -659,7 +671,7 @@ if (!plat->mmc_data.built_in && !plat->has_no_vreg) {
 	host->mmc->pm_caps = MMC_PM_KEEP_POWER | MMC_PM_IGNORE_PM_NOTIFY;
 	if (plat->mmc_data.built_in) {
 		host->mmc->caps |= MMC_CAP_NONREMOVABLE;
-		host->mmc->pm_flags = MMC_PM_KEEP_POWER | MMC_PM_IGNORE_PM_NOTIFY;
+		host->mmc->pm_flags = MMC_PM_IGNORE_PM_NOTIFY;
 	}
 	/* Do not turn OFF embedded sdio cards as it support Wake on Wireless */
 	if (plat->mmc_data.embedded_sdio)

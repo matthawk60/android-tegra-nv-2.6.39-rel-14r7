@@ -276,22 +276,24 @@ int tps6586x_power_off(void)
 
 	return 0;
 }
+
 int tps6586x_cancel_sleep(void)
 {
-struct device *dev = NULL;
-int ret = -EINVAL;
+	struct device *dev = NULL;
+	int ret = -EINVAL;
 
-if (!tps6586x_i2c_client)
-return ret;
+	if (!tps6586x_i2c_client)
+		return ret;
 
-dev = &tps6586x_i2c_client->dev;
+	dev = &tps6586x_i2c_client->dev;
 
-ret = tps6586x_set_bits(dev, TPS6586X_SUPPLYENE, EXITSLREQ_BIT);
-if (ret)
-return ret;
+	ret = tps6586x_set_bits(dev, TPS6586X_SUPPLYENE, EXITSLREQ_BIT);
+	if (ret)
+		return ret;
 
-return 0;
+	return 0;
 }
+
 static int tps6586x_gpio_get(struct gpio_chip *gc, unsigned offset)
 {
 	struct tps6586x *tps6586x = container_of(gc, struct tps6586x, gpio);
@@ -342,8 +344,6 @@ static int tps6586x_gpio_output(struct gpio_chip *gc, unsigned offset,
 
 static int tps6586x_gpio_init(struct tps6586x *tps6586x, int gpio_base)
 {
-	int ret;
-
 	if (!gpio_base)
 		return 0;
 
@@ -359,10 +359,7 @@ static int tps6586x_gpio_init(struct tps6586x *tps6586x, int gpio_base)
 	tps6586x->gpio.set		= tps6586x_gpio_set;
 	tps6586x->gpio.get		= tps6586x_gpio_get;
 
-	ret = gpiochip_add(&tps6586x->gpio);
-	if (ret)
-		dev_warn(tps6586x->dev, "GPIO registration failed: %d\n", ret);
-	return ret;
+	return gpiochip_add(&tps6586x->gpio);
 }
 
 static int __remove_subdev(struct device *dev, void *unused)

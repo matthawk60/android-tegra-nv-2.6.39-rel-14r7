@@ -45,7 +45,7 @@
 #define SMBA1002_BL_VDD			TEGRA_GPIO_PW0
 #define SMBA1002_BL_PWM			TEGRA_GPIO_PU3 /* PWM */
 //#define SMBA1002_HDMI_ENB		TEGRA_GPIO_PV5 /* unconfirmed */ // Does smba1002 have HDMI enbl?
-#define SMBA1002_HDMI_HPD		TEGRA_GPIO_PJ7 /* 1=HDMI plug detected */
+//#define SMBA1002_HDMI_HPD		TEGRA_GPIO_PJ7 /* 1=HDMI plug detected */
 
 #define SMBA1002_BL_PWM_ID		0				/* PWM0 controls backlight */
 
@@ -72,7 +72,7 @@
 #define SMBA1002_1280x720HDMI
 
 
-/*#define SMBA1002_48KHZ_AUDIO*/ /* <- define this if you want 48khz audio sampling rate instead of 44100Hz */
+#define SMBA1002_48KHZ_AUDIO   /* <- define this if you want 48khz audio sampling rate instead of 44100Hz */
 
 
 // TPS6586x GPIOs as registered 
@@ -91,18 +91,18 @@
 #define	SMBA1002_ENABLE_VDD_VID	TEGRA_GPIO_PD1	/* 1=enabled.  Powers HDMI. Wait 500uS to let it stabilize before returning */
 
 // TODO: Find whether there are any definitions for these?
-/*#define SMBA1002_SDIO0_CD		TEGRA_GPIO_PI5
-#define SMBA1002_SDIO0_POWER	TEGRA_GPIO_PD0*/	/* SDIO0 and SDIO2 power */
+#define SMBA1002_SDIO0_CD		TEGRA_GPIO_PI5
+#define SMBA1002_SDIO0_POWER	TEGRA_GPIO_PD0	/* SDIO0 and SDIO2 power */
 
 #define SMBA1002_SDHC_CD		TEGRA_GPIO_PI5
 #define SMBA1002_SDHC_WP		-1	/*1=Write Protected */
 #define SMBA1002_SDHC_POWER	TEGRA_GPIO_PD0
 
-//#define SMBA1002_TS_IRQ		TEGRA_GPIO_PN7
-#define SMBA1002_TS_RESET	TEGRA_GPIO_PN7
-#define SMBA1002_TS_POWER	TEGRA_GPIO_PK7
-//#define SMBA1002_TS_DISABLE	TEGRA_GPIO_PAA6 /* 0=enabled */
+#define SMBA1002_TS_IRQ		TEGRA_GPIO_PN7
+#define SMBA1002_TS_RESET	TEGRA_GPIO_PH1
+#define SMBA1002_TS_POWER	TEGRA_GPIO_PK2
 
+#define BATTERY                 TEGRA_GPIO_PJ7
 //#define SMBA1002_FB_NONROTATE TEGRA_GPIO_PH1 /*1 = screen rotation locked */
 
 #define SMBA1002_WLAN_POWER 	TEGRA_GPIO_PK5
@@ -113,8 +113,8 @@
 #define SMBA1002_LOW_BATT	TEGRA_GPIO_PW3 /*(0=low battery)*/
 #define SMBA1002_IN_S3		TEGRA_GPIO_PAA7 /*1 = in S3 */
 
-#define SMBA1002_USB0_VBUS		TEGRA_GPIO_PX0		/* 1= VBUS usb0 */
-#define SMBA1002_USB1_RESET		TEGRA_GPIO_PV3	/* 0= reset */
+#define SMBA1002_USB0_VBUS		TEGRA_GPIO_PB0		/* 1= VBUS usb0 */
+#define SMBA1002_USB1_RESET		TEGRA_GPIO_PV1	/* 0= reset */
 
 #define SMBA1002_HP_DETECT	TEGRA_GPIO_PW2 	/* HeadPhone detect for audio codec: 1=Hedphone plugged */
 

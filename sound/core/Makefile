@@ -32,4 +32,3 @@ obj-$(CONFIG_SND_RAWMIDI)	+= snd-rawmidi.o
 obj-$(CONFIG_SND_OSSEMUL)	+= oss/
 obj-$(CONFIG_SND_SEQUENCER)	+= seq/
 
-
