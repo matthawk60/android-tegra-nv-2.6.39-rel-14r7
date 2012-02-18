@@ -204,8 +204,8 @@ static struct tegra_gpio_table gpio_table[] = {
 	{ .gpio = SMBA1002_EN_VDD_PANEL,		.enable = true },
 	{ .gpio = SMBA1002_BL_VDD,			.enable = true },
 	{ .gpio = SMBA1002_BL_PWM,			.enable = false }, /* We want the PWM function here! */
-	{ .gpio = SMBA1002_HDMI_ENB,			.enable = true },
-	{ .gpio = SMBA1002_HDMI_HPD,			.enable = true },
+	//{ .gpio = SMBA1002_HDMI_ENB,			.enable = true },
+	//{ .gpio = SMBA1002_HDMI_HPD,			.enable = true },
 	{ .gpio = SMBA1002_ENABLE_VDD_VID,	.enable = true },
 	//{ .gpio = SMBA1002_SDIO2_CD,		.enable = true },
 	//{ .gpio = SMBA1002_SDIO2_POWER,		.enable = true },

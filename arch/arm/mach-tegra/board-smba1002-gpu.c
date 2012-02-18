@@ -243,7 +243,7 @@ static struct tegra_dc_out smba1002_hdmi_out = {
 	.flags		= TEGRA_DC_OUT_HOTPLUG_HIGH,
 
 	.dcc_bus	= 1,
-	.hotplug_gpio	= SMBA1002_HDMI_HPD,
+	//.hotplug_gpio	= SMBA1002_HDMI_HPD,
 
 	.align		= TEGRA_DC_ALIGN_MSB,
 	.order		= TEGRA_DC_ORDER_RED_BLUE,
