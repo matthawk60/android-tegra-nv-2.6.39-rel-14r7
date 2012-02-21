@@ -20,7 +20,7 @@
 #define TPS6586X_INT_BASE	TEGRA_NR_IRQS
 
 #define SMBA1002_BT_RESET 		TEGRA_GPIO_PU0 	/* 0= reset asserted */
-
+#define SMBA1002_BT_RST 		TEGRA_GPIO_PU0 	/* 0= reset asserted */
 /* GPS and Magnetic sensor share the same enabling IO line */
 #define SMBA1002_GPSMAG_DISABLE  	TEGRA_GPIO_PV3 	/* 0= disabled */
 #define SMBA1002_3G_DISABLE		TEGRA_GPIO_PJ2 /* 0 = disabled */
@@ -108,7 +108,6 @@
 #define SMBA1002_WLAN_POWER 	TEGRA_GPIO_PK5
 #define SMBA1002_WLAN_RESET 	TEGRA_GPIO_PK6
 
-#define SMBA1002_BT_RST		TEGRA_GPIO_PU0
 
 #define SMBA1002_LOW_BATT	TEGRA_GPIO_PW3 /*(0=low battery)*/
 #define SMBA1002_IN_S3		TEGRA_GPIO_PAA7 /*1 = in S3 */
