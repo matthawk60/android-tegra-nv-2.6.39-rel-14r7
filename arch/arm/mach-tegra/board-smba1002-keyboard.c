@@ -99,39 +99,9 @@ static struct platform_device smba1002_keys_device = {
 	},
 };
 
-static struct gpio_led smba1002_gpio_leds[] = {
-	{
-                .name   = "cpu",
-                .gpio   = TEGRA_GPIO_PI3,
-		.default_trigger = "heartbeat",
-		.active_low = 0,
-                .retain_state_suspended = 0,
-        },
-	{
-                .name = "cpu-busy",
-                .gpio = TEGRA_GPIO_PI4,
-                .active_low = 0,
-                .retain_state_suspended = 0,
-                .default_state = LEDS_GPIO_DEFSTATE_OFF,
-        },
-};
-
-static struct gpio_led_platform_data smba1002_led_data = {
-        .leds   = smba1002_gpio_leds,
-        .num_leds       = ARRAY_SIZE(smba1002_gpio_leds),
-};
-
-static struct platform_device smba1002_leds_gpio = {
-        .name   = "leds-gpio",
-        .id     = -1,
-        .dev    = {
-                .platform_data = &smba1002_led_data,
-        },
-};
 
 static struct platform_device *smba1002_pmu_devices[] __initdata = {
 	&smba1002_keys_device,
-	//&smba1002_leds_gpio,
 };
 
 /* Register all keyboard devices */

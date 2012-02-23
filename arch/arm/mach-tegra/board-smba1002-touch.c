@@ -12,7 +12,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ *at168
  */
  
 #include <linux/resource.h>
@@ -47,6 +47,10 @@ static struct i2c_board_info __initdata smba1002_i2c_bus0_touch_info_at168[] = {
 
 int __init smba1002_touch_register_devices(void)
 {
+	tegra_gpio_enable(TEGRA_GPIO_PJ7);
+	gpio_request(TEGRA_GPIO_PJ7, "at168_touch");
+	gpio_direction_input(TEGRA_GPIO_PJ7);
+	
 	i2c_register_board_info(0, smba1002_i2c_bus0_touch_info_at168, 1);
 
 	return 0;
