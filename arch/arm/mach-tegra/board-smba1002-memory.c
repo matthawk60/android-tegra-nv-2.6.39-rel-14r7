@@ -1,11 +1,11 @@
 /* OK, info extracted from a running .32 kernel */
 /*
- * Copyright (C) 2011 Eduardo José Tagle <ejtagle@tutopia.com>
+ * Copyright (C) 2011 Eduardo Josï¿½ Tagle <ejtagle@tutopia.com>
  * Copyright (C) 2010 Google, Inc.
  *
  * Authors:
  *	Colin Cross <ccross@google.com>
- *	Eduardo José Tagle <ejtagle@tutopia.com>
+ *	Eduardo Josï¿½ Tagle <ejtagle@tutopia.com>
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -920,17 +920,17 @@ static const struct tegra_emc_table smba1002_emc_tables[] = {
 
 #elif 0
 
-/* This is the LPDDR2 sdram used in Shuttle: Hynax HY5PS1G831C-S5 
+/* This is the LPDDR2 sdram used in SMBA_1002: Hynax HY5PS1G831C-S6  //Shuttle was S5 speed bin
 
-	Tck  = 2.5ns -> DDR2-800
-	CL	 = 5 Clk
-	tRCD = 5 Clk
-	tRP  = 5 Clk
+	Tck  = 2.5ns -> DDR2-800   //Same as Shuttle
+	CL	 = 6 Clk          // Shuttle was 5  
+	tRCD = 6 Clk              //Shuttle was 5
+	tRP  = 6 Clk              //Shuttle was 5
 
 	VDD = 1.8 +/- 0.1V
 	VDDQ = 1.8 +/- 0.1V
 	
-	2 chips x 128Mx8
+	4 chips x 128Mx8
 	
 	Programmable CAS latency 3, 4, 5 and 6 supported
 	Programmable additive latency 0, 1, 2, 3, 4 and 5 supported
