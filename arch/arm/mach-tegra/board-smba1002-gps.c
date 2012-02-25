@@ -44,6 +44,7 @@
 #include "gpio-names.h"
 #include "devices.h"
 
+#ifdef SMBA1002_GPS
 static struct platform_device smba1002_gps_pm_device = {
 	.name		= "smba1002-pm-gps",
 	.id			= -1,
@@ -58,3 +59,4 @@ int __init smba1002_gps_pm_register_devices(void)
 {
 	return platform_add_devices(smba1002_gps_pm_devices, ARRAY_SIZE(smba1002_gps_pm_devices));
 }
+#endif

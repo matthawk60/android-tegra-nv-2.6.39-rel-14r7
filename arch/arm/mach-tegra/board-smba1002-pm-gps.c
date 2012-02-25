@@ -24,7 +24,7 @@
 #include "board-smba1002.h"
 #include "gpio-names.h"
 
-
+#ifdef SMBA1002_GPS
 struct smba1002_pm_gps_data {
 	struct regulator *regulator[2];
 	int pre_resume_state;
@@ -231,6 +231,7 @@ static void smba1002_pm_gps_exit(void)
 
 module_init(smba1002_pm_gps_init);
 module_exit(smba1002_pm_gps_exit);
+#endif
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Eduardo José Tagle <ejtagle@tutopia.com>");
