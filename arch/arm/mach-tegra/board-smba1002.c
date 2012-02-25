@@ -603,6 +603,7 @@ static void __init tegra_ramconsole_reserve(unsigned long size)
 }
 #endif
 
+#ifdef SMBA1002_GPS
 /*Fosser2's GPS MOD*/
 static atomic_t smba1002_gps_mag_powered = ATOMIC_INIT(0);
 void smba1002_gps_mag_poweron(void)
@@ -643,7 +644,7 @@ void smba1002_gps_mag_deinit(void)
 }
 EXPORT_SYMBOL_GPL(smba1002_gps_mag_deinit);
 
-
+#endif
 
 static void __init tegra_smba1002_init(void)
 {
@@ -710,15 +711,6 @@ static void __init tegra_smba1002_init(void)
 	/* Register accelerometer device */
 	smba1002_sensors_register_devices();
 	
-	/* Register wlan powermanagement devices */
-//	smba1002_wlan_pm_register_devices();
-	
-	/* Register gps powermanagement devices */
-	smba1002_gps_pm_register_devices();
-
-	/* Register gsm powermanagement devices */
-	//smba1002_gsm_pm_register_devices();
-	
 	/* Register Bluetooth powermanagement devices */
 	smba1002_bt_rfkill();
 	smba1002_setup_bluesleep();
@@ -731,9 +723,12 @@ static void __init tegra_smba1002_init(void)
 	
 	/* Register SDHCI devices */
 	smba1002_sdhci_register_devices();	
-	
+#ifdef SMBA1002_GPS
+	/* Register gps powermanagement devices */
+	smba1002_gps_pm_register_devices();
 	smba1002_gps_mag_init();
 	smba1002_gps_mag_poweron();
+#endif	
 	tegra_release_bootloader_fb();
 #ifdef CONFIG_TEGRA_WDT_RECOVERY
 	tegra_wdt_recovery_init();
