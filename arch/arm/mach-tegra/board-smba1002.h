@@ -128,9 +128,9 @@
 /* The switch used to indicate rotation lock */
 //#define SW_ROTATION_LOCK 	(SW_MAX-1)
 
-extern void smba1002_gps_mag_poweron(void);
-extern void smba1002_gps_mag_poweroff(void);
-extern void smba1002_gps_mag_init(void);
+//extern void smba1002_gps_mag_poweron(void);
+//extern void smba1002_gps_mag_poweroff(void);
+//extern void smba1002_gps_mag_init(void);
 extern int smba1002_bt_wifi_gpio_set(bool on);
 extern int smba1002_bt_wifi_gpio_init(void);
 
