@@ -71,7 +71,7 @@
 
 #define SMBA1002_1280x720HDMI
 
-
+//#define SMBA1002_GPS  // Define for Fosser's GPS MOD 
 #define SMBA1002_48KHZ_AUDIO   /* <- define this if you want 48khz audio sampling rate instead of 44100Hz */
 
 

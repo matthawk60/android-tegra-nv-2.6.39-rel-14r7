@@ -202,8 +202,10 @@ static __initdata struct tegra_drive_pingroup_config smba1002_drive_pinmux[] = {
 
 static struct tegra_gpio_table gpio_table[] = {
 	{ .gpio = SMBA1002_BT_RESET,			.enable = true },
+#ifdef SMBA1002_GPS
 	{ .gpio = SMBA1002_GPSMAG_DISABLE,	.enable = true },
-	{ .gpio = SMBA1002_KEY_VOLUMEUP,		.enable = true },
+#endif	
+{ .gpio = SMBA1002_KEY_VOLUMEUP,		.enable = true },
 	{ .gpio = SMBA1002_KEY_VOLUMEDOWN,	.enable = true },
 	{ .gpio = SMBA1002_KEY_POWER,		.enable = true },
 	//{ .gpio = SMBA1002_KEY_BACK,			.enable = true },
