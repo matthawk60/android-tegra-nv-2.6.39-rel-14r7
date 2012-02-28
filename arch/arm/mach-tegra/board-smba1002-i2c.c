@@ -59,17 +59,17 @@ static const struct tegra_pingroup_config i2c2_gen2 = {
 
 static struct tegra_i2c_platform_data smba1002_i2c2_platform_data = {
 	.adapter_nr	= 1,
-	.bus_count	= 1,
-	.bus_clk_rate	= { 100000, 0 },
+	.bus_count	= 2,
+	.bus_clk_rate	= { 100000, 100000},
 	.bus_mux	= { &i2c2_ddc, &i2c2_gen2 },
 	.bus_mux_len	= { 1, 1 },
-	.scl_gpio = {TEGRA_GPIO_PT5, 0},
-    .sda_gpio = {TEGRA_GPIO_PT6, 0},
-    .arb_recovery = arb_lost_recovery,
+	.scl_gpio = {0, TEGRA_GPIO_PT5},
+        .sda_gpio = {0, TEGRA_GPIO_PT6},
+        arb_recovery = arb_lost_recovery,
 };
 
 static struct tegra_i2c_platform_data smba1002_i2c3_platform_data = {
-      .adapter_nr = 2,
+      .adapter_nr = 3,
       .bus_count = 1,
       .bus_clk_rate = { 100000, 0 },
       .slave_addr = 0x8a,
@@ -79,7 +79,7 @@ static struct tegra_i2c_platform_data smba1002_i2c3_platform_data = {
 };
 
 static struct tegra_i2c_platform_data smba1002_dvc_platform_data = {
-	.adapter_nr	= 3,
+	.adapter_nr	= 4,
 	.bus_count	= 1,
 	.bus_clk_rate	= { 100000, 0 },
 	.is_dvc		= true,
