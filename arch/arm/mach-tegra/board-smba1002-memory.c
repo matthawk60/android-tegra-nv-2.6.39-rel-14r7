@@ -460,6 +460,7 @@ static const struct tegra_emc_table smba1002_emc_tables[] = {
             0x00000000,   /* CFG_CLKTRIM_2 */
         }
     }, 
+#if 0    
 
 	{
 		.rate = 400000,   /* SDRAM frequency */
@@ -601,36 +602,10 @@ static const struct tegra_emc_table smba1002_emc_tables[] = {
             0x00000000,   /* CFG_CLKTRIM_2 */
         }
     },
+#endif
 };
 
 static const struct tegra_emc_chip smba1002_emc_chips[] = {
-	{
-		.description = "Smba1002 memory",
-		.mem_manufacturer_id = -1,
-		.mem_revision_id1 = -1,
-		.mem_revision_id2 = -1,
-		.mem_pid = -1,
-		.table = smba1002_emc_tables,
-		.table_size = ARRAY_SIZE(smba1002_emc_tables),
-	},
-	{
-		.description = "Smba1002 memory",
-		.mem_manufacturer_id = -1,
-		.mem_revision_id1 = -1,
-		.mem_revision_id2 = -1,
-		.mem_pid = -1,
-		.table = smba1002_emc_tables,
-		.table_size = ARRAY_SIZE(smba1002_emc_tables),
-	},
-	{
-		.description = "Smba1002 memory",
-		.mem_manufacturer_id = -1,
-		.mem_revision_id1 = -1,
-		.mem_revision_id2 = -1,
-		.mem_pid = -1,
-		.table = smba1002_emc_tables,
-		.table_size = ARRAY_SIZE(smba1002_emc_tables),
-	},
 	{
 		.description = "Smba1002 memory",
 		.mem_manufacturer_id = -1,
