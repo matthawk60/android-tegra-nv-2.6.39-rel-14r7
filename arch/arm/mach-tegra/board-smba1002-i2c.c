@@ -65,7 +65,7 @@ static struct tegra_i2c_platform_data smba1002_i2c2_platform_data = {
 	.bus_mux_len	= { 1, 1 },
 	.scl_gpio = {0, TEGRA_GPIO_PT5},
         .sda_gpio = {0, TEGRA_GPIO_PT6},
-        arb_recovery = arb_lost_recovery,
+        .arb_recovery = arb_lost_recovery,
 };
 
 static struct tegra_i2c_platform_data smba1002_i2c3_platform_data = {
