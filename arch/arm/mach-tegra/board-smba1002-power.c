@@ -714,7 +714,7 @@ int __init smba1002_power_register_devices(void)
 	pmc_ctrl = readl(pmc + PMC_CTRL);
 	writel(pmc_ctrl | PMC_CTRL_INTR_LOW, pmc + PMC_CTRL);
 
-	err = i2c_register_board_info(3, smba1002_regulators, 1);
+	err = i2c_register_board_info(4, smba1002_regulators, 1);
 	if (err < 0) 
 		pr_warning("Unable to initialize regulator\n");
 
