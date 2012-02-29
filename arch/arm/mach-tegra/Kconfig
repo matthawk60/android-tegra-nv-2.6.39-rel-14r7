@@ -220,6 +220,10 @@ config TEGRA_SYSTEM_DMA
 	  Adds system DMA functionality for NVIDIA Tegra SoCs, used by
 	  several Tegra device drivers
 
+config DRH_OC_MODE
+        bool "Enable 1.2 overclocking ala DRH"
+        default n
+
 config TEGRA_PWM
 	tristate "Enable PWM driver"
 	select HAVE_PWM
