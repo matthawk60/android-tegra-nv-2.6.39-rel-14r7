@@ -52,7 +52,7 @@
 #define SDHOST_LOW_VOLT_MAX	1800000
 
 #define TEGRA_SDHOST_MIN_FREQ	50000000
-#define TEGRA2_SDHOST_STD_FREQ	50000000
+#define TEGRA2_SDHOST_STD_FREQ	104000000
 #define TEGRA3_SDHOST_STD_FREQ	104000000
 
 static unsigned int tegra_sdhost_min_freq;
@@ -326,8 +326,8 @@ static void tegra_sdhci_set_clk_rate(struct sdhci_host *sdhci,
 		(clk_rate > tegra_host->max_clk_limit))
 		clk_rate = tegra_host->max_clk_limit;
 
-	clk_set_rate(pltfm_host->clk, clk_rate);
-	sdhci->max_clk = clk_get_rate(pltfm_host->clk);
+	clk_set_rate(pltfm_host->clk, 52000000);
+	sdhci->max_clk = 52000000; //clk_get_rate(pltfm_host->clk);
 }
 
 static void tegra_3x_sdhci_set_card_clock(struct sdhci_host *sdhci, unsigned int clock)
