@@ -171,7 +171,7 @@ static int smba1002_hdmi_disable(void)
 
 static struct tegra_dc_mode smba1002_panel_modes[] = {
 	{
-		.pclk = 42430000,
+		.pclk = 68419300,    //42430000,
 		.h_ref_to_sync = 4,
 		.v_ref_to_sync = 2,
 		.h_sync_width = 136,
