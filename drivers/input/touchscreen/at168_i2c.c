@@ -135,12 +135,12 @@ static int at168_read_registers(struct at168_data *touch, unsigned char reg, uns
 	msgs[0].addr = touch->client->addr;
 	msgs[0].len = 1;
 	msgs[0].buf = &reg;
-	msgs[0].flags = 0;
+	msgs[0].flags = I2C_M_REV_DIR_ADDR;
 	
 	msgs[1].addr = touch->client->addr;
 	msgs[1].len=len;
 	msgs[1].buf = buffer;
-	msgs[1].flags = I2C_M_RD;
+	msgs[1].flags = I2C_M_RD; //same as 0x1 (per .32)
 	
 	do
 	{
