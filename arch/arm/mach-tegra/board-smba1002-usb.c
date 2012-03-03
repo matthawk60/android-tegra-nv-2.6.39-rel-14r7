@@ -126,7 +126,7 @@ static struct platform_device * tegra_usb_otg_host_register(void)
 	
 	/* Enable VBUS - This means we can power USB devices, but
 	   we cant use VBUS detection at all */
-	//gpio_direction_input(SMBA1002_USB0_VBUS);
+	gpio_direction_input(SMBA1002_USB0_VBUS);
 
 	/* Leave some time for stabilization purposes */
 	msleep(10);
@@ -177,7 +177,7 @@ static void tegra_usb_otg_host_unregister(struct platform_device *pdev)
 	   is plugged into the Tegra USB port, then we will 
 	   detect the power it supplies and go into gadget 
 	   mode */
-	//gpio_direction_output(SMBA1002_USB0_VBUS, 0); 
+	gpio_direction_output(SMBA1002_USB0_VBUS, 0); 
 
 	/* Leave some time for stabilization purposes - This 
 	   should unregister all attached devices, as they

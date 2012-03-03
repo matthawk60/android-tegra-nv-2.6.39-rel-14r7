@@ -587,7 +587,7 @@ static void tegra_otg_resume(struct device *dev)
 	 * It is placed here after observing system hang.
 	 * Root cause is not confirmed.
 	 */
-	msleep(1);
+	msleep(100);
 	
 	clk_enable(tegra->clk);
 	spin_lock_irqsave(&tegra->lock, flags);
